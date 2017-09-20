@@ -1,0 +1,51 @@
+<ion-menu [content]="content">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Menu</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <div *ngIf="POSReady && POSCategoryReady">
+          <ion-row>
+            <div class="menu-header">
+                عربة التسوق                
+            </div>
+          </ion-row>
+          <ion-row>
+            <div class="menu-sub-header">
+              عرض: 
+            </div>
+          </ion-row>
+          <ion-row>
+            <div (tap)="changeFlter(0)" class="menu-filters">
+              الشركات
+            </div>
+          </ion-row>
+          <ion-row>
+              <div (tap)="changeFlter(1)" class="menu-filters"> 
+                  الفئات
+              </div>
+            </ion-row>
+          <ion-row>
+            <ion-col>
+            </ion-col>
+          </ion-row>
+            <ion-row>
+                <ion-searchbar [(ngModel)]="searchterm" (ionInput)="search()" placeholder="ابحث" ></ion-searchbar>
+                </ion-row>
+                <ion-row>
+                    <ion-list>
+                        <ion-item  *ngFor="let item of listedArr">
+                            <ion-thumbnail item-start class="menu-thumbnail">
+                                <img class="menu-thumbnail-img" *ngIf="item.image" [src]="item.image">
+                                <img *ngIf="!item.image" src="assets/img/no-img.jpeg" >
+                              </ion-thumbnail>
+                          {{item.name}}
+                  
+                        </ion-item>
+                      </ion-list>
+                </ion-row>
+              </div>
+        </ion-content>
+</ion-menu>
+<ion-nav #content [root]="rootPage"></ion-nav>
