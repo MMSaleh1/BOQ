@@ -1,0 +1,46 @@
+<!--
+  Generated template for the ProductlistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <BOQ-Header></BOQ-Header>
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="type ==0 ">
+   <ion-list>
+     <ion-item class="item-container" *ngFor="let item of itemBase.products ; let index = index ; trackBy:trackByIndex;">
+       <ion-row>
+         <ion-col col-auto class="product-img-cont">
+            <ion-thumbnail item-start class="product-thumbnail">
+            <img class="product-img" *ngIf="item.imageUrl" [src]="item.imageUrl">
+            <img *ngIf="!item.imageUrl" class="product-img" src="assets/img/no-img.jpeg" >
+            </ion-thumbnail>
+         </ion-col>
+         <ion-col>
+            <p>{{item.name}}</p>
+            <p>{{itemBase.name}}</p>
+            <p>{{item.price}} LE</p>
+         </ion-col>
+         <ion-row>
+            <button class="rest-button" ion-button (tap)="changeNumber('add',index)"> 
+                <ion-icon class="icon-no-margin" name="add" ></ion-icon>
+              </button>
+         </ion-row>
+         <ion-row>
+            <button class="rest-button" (tap)="changeNumber('remove',index)" ion-button>
+                <ion-icon  class="icon-no-margin"   name="remove" ></ion-icon>
+             </button>
+        </ion-row>
+
+       </ion-row>
+        
+     </ion-item>
+     
+   </ion-list>
+  </div>
+
+</ion-content>
