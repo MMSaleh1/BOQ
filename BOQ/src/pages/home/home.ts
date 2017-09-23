@@ -13,10 +13,12 @@ export class HomePage {
 
   public news : Array<any>;
   public newsCategories :Array<any>;
+  public filteredNews : Array<any>
   public ReadyNews : boolean =false;
   public ReadyCate : boolean =false;
   constructor(public navCtrl: NavController,public natStorage :NativeStorage,public newsProvider :NewsProvider) {
     this.news = new Array();
+    this.filteredNews = new Array();
     this.newsCategories = new Array();
     this.natStorage.getItem('news').then(data=>{
       this.news = data;
@@ -24,8 +26,9 @@ export class HomePage {
       this.newsProvider.get_News("1").subscribe(data=>{
         if(data.length > 0){
           for(let i =0;i<data.length ; i++){
-            this.news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage);
+            this.news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage,data[i].NewsCategory);
           }
+          this.filteredNews = this.news;
           this.ReadyNews = true;
         }
       },err=>{
@@ -47,6 +50,27 @@ export class HomePage {
         
       })
     })
+  }
+
+  filter(category :any = ""){
+    this.filteredNews = new Array();
+    if(category ==""){
+      this.filteredNews = this.news;
+    }else{
+      let counter =0;
+     // console.log(category);
+      for(let i = 0 ; i< this.news.length ;i++){
+        if(this.news[i].category == category.id)
+        {
+          this.filteredNews[counter]= this.news[i];
+          counter++;
+        }
+      }
+      //console.log(this.filteredNews);
+    }
+
+    
+
   }
 
 }

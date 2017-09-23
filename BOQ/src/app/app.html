@@ -35,7 +35,7 @@
                 </ion-row>
                 <ion-row>
                     <ion-list>
-                        <ion-item  *ngFor="let item of listedArr" (tap)="openpage(item)">
+                        <ion-item   *ngFor="let item of listedArr" (tap)="openpage(item)">
                             <ion-thumbnail item-start class="menu-thumbnail">
                                 <img class="menu-thumbnail-img" *ngIf="item.image" [src]="item.image">
                                 <img *ngIf="!item.image"class="menu-thumbnail-img" src="assets/img/no-img.jpeg" >

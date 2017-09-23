@@ -8,8 +8,9 @@ export class News{
     isliked : boolean;
     isdesliked : boolean;
     image : string;
+    category : string;
     
-    constructor(id:string="",title:string="",content:string="",likeCount:number=0,dislikeCount:number =0,image:string=""){
+    constructor(id:string="",title:string="",content:string="",likeCount:number=0,dislikeCount:number =0,image:string="" ,category : string= "-1"){
         this.id = id;
         this.title = title;
         this.content = content;
@@ -18,7 +19,9 @@ export class News{
         this.isdesliked=false;
         this.isliked=false;
         this.image = (image !=null &&image.length > 0)?News.URLNAME+image.substring(1,image.length) : "";
+        this.category = category;
     }
+
 }
 export class NewsCategory{
     private static  URLNAME="http://services.edge-techno.com/boq";

@@ -14,12 +14,21 @@ import { UserProvider } from '../providers/user/user';
 import { RootProvider } from '../providers/root/root';
 import { NewsProvider } from '../providers/news/news';
 import { ProductlistPage} from '../pages/productlist/productlist';
-
+import { PosprofilePage} from '../pages/posprofile/posprofile';
+import { LoginPage} from '../pages/login/login';
+import { RegisterationPage} from '../pages/registeration/registeration';
+import {LandingPage} from '../pages/landing/landing';
+import {OrderPage} from '../pages/order/order';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ProductlistPage
+    ProductlistPage,
+    PosprofilePage,
+    RegisterationPage,
+    LoginPage,
+    LandingPage,
+    OrderPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +40,12 @@ import { ProductlistPage} from '../pages/productlist/productlist';
   entryComponents: [
     MyApp,
     HomePage,
-    ProductlistPage
+    ProductlistPage,
+    PosprofilePage,
+    RegisterationPage,
+    LoginPage,
+    LandingPage,
+    OrderPage
   ],
   providers: [
     StatusBar,
@@ -43,6 +57,7 @@ import { ProductlistPage} from '../pages/productlist/productlist';
     UserProvider,
     RootProvider,
     NewsProvider,
+    UserProvider,
   ]
 })
 export class AppModule {}

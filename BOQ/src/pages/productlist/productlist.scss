@@ -10,10 +10,48 @@ page-productlist {
     min-height: 40px !important;
     margin: 0 !important;
 }
+.label-md {
+    margin: 6px 9px 0px 0;
+}
 .item-container
 {
-background-color: gainsboro; 
-border-bottom: #fff solid;
+    background-color: white;
+    //border-width: 1px;
+    border-top: #757171 solid;
 
 }
+.scroll-content{
+    width: 100%;
+    margin: auto;
+    height: 88%;
+}
+.order-button{
+    width: 100%;
+    background: #000;
+    margin-bottom: 13px;
+    margin-top: -9px;
+}
+.profile-button{
+    width: 100%;
+    background: #000;
+    margin-top: 11%;
+}
+.rest-input{
+    text-align: center;
+    font-family: fantasy;
+    margin: auto;
+    color: #000000 !important;
+
+}
+.rest-button{
+    background-color: transparent;
+    box-shadow: none;
+    width: fit-content;
+}
+.icon-no-margin {
+    color: #000 !important;
+    font-size: 1em;
+    margin: 0 !important;
+  }
+
 }

@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { Nav,Platform } from 'ionic-angular';
+import { Nav,Platform ,MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeStorage } from '@ionic-native/native-storage'; 
@@ -9,6 +9,9 @@ import { ProductProvider} from '../providers/product/product';
 import { SearchfilterProvider} from '../providers/searchfilter/searchfilter';
 import { HomePage } from '../pages/home/home';
 import { ProductlistPage} from '../pages/productlist/productlist';
+import { RegisterationPage} from '../pages/registeration/registeration';
+import { LoginPage } from '../pages/login/login';
+import {LandingPage} from '../pages/landing/landing';
 import{Category,Product,Resturant,PosCategory} from '../templates/pos';
 import {News ,NewsCategory} from '../templates/news';
 
@@ -17,7 +20,7 @@ import {News ,NewsCategory} from '../templates/news';
 })
 export class MyApp {
   @ViewChild(Nav) nav : Nav;
-  rootPage:any = HomePage;
+  rootPage:any =LandingPage;
   public POSReady :boolean = false;
   public POSCategoryReady :boolean =false;
   public POS : Array<any> ;
@@ -30,6 +33,7 @@ export class MyApp {
   constructor(platform: Platform,
      statusBar: StatusBar,
       splashScreen: SplashScreen ,
+      public menuCtrl: MenuController,
        public productProvider : ProductProvider,
        public newsProvider : NewsProvider,
        public searchFilter : SearchfilterProvider,
@@ -84,9 +88,9 @@ export class MyApp {
                   this.listedArr = this.POS;
                   this.natStorage.setItem("POS",this.POS);
                   this.products = ProductArr;
-                  //console.log(categories);
-                 // console.log(this.POS);
-                  //console.log(ProductArr);
+                  console.log(categories);
+                  console.log(this.POS);
+                  console.log(ProductArr);
                   this.POSReady = true;
                   
                 }
@@ -136,7 +140,7 @@ export class MyApp {
       console.log(data);
       let news = new Array();
       for(let i =0; i<data.length;i++){
-      news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage);
+      news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage,data[i].NewsCategory);
       }
       this.natStorage.setItem("news",data);
       console.log(news);
@@ -162,6 +166,14 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.natStorage.getItem('user').then(data=>{
+        this.rootPage = HomePage;
+        this.nav.setRoot(this.rootPage);
+      },err=>{
+        this.rootPage = LandingPage;
+        this.nav.setRoot(this.rootPage);
+      })
+     
     });
   }
   public search(){
@@ -175,7 +187,9 @@ export class MyApp {
   public openpage(item : any){
     let pageType;
     this.filterby == "company" ? pageType = 0 : pageType = 1;
-    this.nav.push(ProductlistPage , {"item" : item , "pageType" : pageType , "products" : pageType == 0 ? [] : this.products})
+    
+    this.nav.push(ProductlistPage , {"item" : item , "pageType" : pageType , "pos" : pageType == 0 ? [] : this.POS})
+    this.menuCtrl.close();
   }
 }
 

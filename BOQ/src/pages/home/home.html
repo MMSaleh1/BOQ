@@ -6,14 +6,17 @@
 <ion-content padding>
   <div *ngIf="ReadyCate" style="border-bottom: solid black;">
       <ion-slides  loop="false"  pager="false" parallax="true" dir="rtl" slidesPerView='4'>
-          <ion-slide *ngFor="let slide of newsCategories">
+          <ion-slide (tap)="filter()">
+              كل
+            </ion-slide>
+          <ion-slide *ngFor="let slide of newsCategories" (tap)="filter(slide)">
             {{slide.name}}
           </ion-slide>
        </ion-slides>
   </div>
   <div>
     <ion-list>
-      <ion-item *ngFor="let item of news">
+      <ion-item *ngFor="let item of filteredNews">
         <ion-row><ion-col>{{item.title}}</ion-col></ion-row>
         <img [src]="item.image">
         <ion-row><ion-col><p>{{item.content}}</p></ion-col></ion-row>
