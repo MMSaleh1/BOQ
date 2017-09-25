@@ -30,12 +30,14 @@ export class HomePage {
         this.newsProvider.get_News(user.id).subscribe(data=>{
           if(data.length > 0){
           console.log(data);
-          let news = new Array();
+          
           for(let i =0; i<data.length;i++){
-          news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage,data[i].NewsCategory);
+          this.news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage,data[i].NewsCategory);
           }
-          this.natStorage.setItem("news",news);
-          console.log(news);
+          this.natStorage.setItem("news",this.news);
+          this.filteredNews = this.news;
+          this.ReadyNews=true;
+          console.log(this.news);
         }
         },err=>{
           console.log(err);
@@ -60,6 +62,8 @@ export class HomePage {
         }
         
       })
+    },err=>{
+      alert(err);
     })
     })
   }
