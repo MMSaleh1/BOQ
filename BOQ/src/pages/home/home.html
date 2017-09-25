@@ -4,7 +4,8 @@
 
 
 <ion-content padding>
-  <div *ngIf="ReadyCate" style="border-bottom: solid black;">
+  <div *ngIf="ReadyCate && ReadyNews">  
+    <div  style="border-bottom: solid black;">
       <ion-slides  loop="false"  pager="false" parallax="true" dir="rtl" slidesPerView='4'>
           <ion-slide (tap)="filter()">
               كل
@@ -24,4 +25,6 @@
       </ion-item>
     </ion-list>
   </div>
+</div>
+
 </ion-content>

@@ -135,32 +135,37 @@ export class MyApp {
             console.log(err);
           })
         })
-    this.newsProvider.get_News("1").subscribe(data=>{
-      if(data.length > 0){
-      console.log(data);
-      let news = new Array();
-      for(let i =0; i<data.length;i++){
-      news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage,data[i].NewsCategory);
-      }
-      this.natStorage.setItem("news",data);
-      console.log(news);
-    }
-    },err=>{
-      console.log(err);
-    })
-    this.newsProvider.get_News_Category("1").subscribe(data=>{
-      if(data.length > 0){
-        let newsCate = new Array();
-        for(let i =0;i<data.length;i++){
-          newsCate[i] = new NewsCategory(data[i].NewsCategory,data[i].NewsCategoryID,data[i].NewsCategoryImage);
-        }
-        console.log(newsCate);
-        this.natStorage.setItem("newsCate",newsCate);
-      }
-     
-    },err=>{
-      console.log(err);
-    })
+        this.natStorage.getItem("user").then(user=>{
+          this.newsProvider.get_News(user.id).subscribe(data=>{
+            if(data.length > 0){
+            console.log(data);
+            let news = new Array();
+            for(let i =0; i<data.length;i++){
+            news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage,data[i].NewsCategory);
+            }
+            this.natStorage.setItem("news",news);
+            console.log(news);
+          }
+          },err=>{
+            console.log(err);
+          })
+          this.newsProvider.get_News_Category(user.id).subscribe(data=>{
+            if(data.length > 0){
+              let newsCate = new Array();
+              for(let i =0;i<data.length;i++){
+                newsCate[i] = new NewsCategory(data[i].NewsCategory,data[i].NewsCategoryID,data[i].NewsCategoryImage);
+              }
+              console.log(newsCate);
+              this.natStorage.setItem("newsCate",newsCate);
+            }
+           
+          },err=>{
+            console.log(err);
+          })
+        },err=>{
+          alert(err);
+        })
+   
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

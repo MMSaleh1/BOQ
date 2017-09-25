@@ -10,5 +10,34 @@
 
 
 <ion-content padding>
-  
+  <ion-row>
+    <ion-col><h4>المبلغ المطلوب :</h4></ion-col>
+    <ion-col><h4>{{totalPrice}} LE</h4></ion-col>
+  </ion-row>
+  <div class="order-cont">
+    <ion-scroll class="scroll-content" scrollY="true">
+      <ion-list>
+        <ion-item class="item-container" *ngFor="let element of viewOrder ; let index = index ; trackBy:trackByIndex;">
+          <ion-row>
+            <ion-col>
+                <ion-row>
+                    <ion-col col-2>{{element.item.name}}</ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                      <ion-col col-2>العدد:</ion-col>
+                      <ion-col col-2>{{element.quantity}}</ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col col-2>السعر:</ion-col>
+                        <ion-col col-2>{{element.item.price}}</ion-col>
+                      </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+  </div>
+  <button ion-button class="order-button" (tap)="confirm()">اكد الطلب</button>
 </ion-content>

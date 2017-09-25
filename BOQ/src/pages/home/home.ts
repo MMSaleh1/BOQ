@@ -22,24 +22,35 @@ export class HomePage {
     this.newsCategories = new Array();
     this.natStorage.getItem('news').then(data=>{
       this.news = data;
+      this.filteredNews = this.news;
+      //alert(this.filteredNews[0].title);
+      this.ReadyNews = true;
     },err=>{
-      this.newsProvider.get_News("1").subscribe(data=>{
-        if(data.length > 0){
-          for(let i =0;i<data.length ; i++){
-            this.news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage,data[i].NewsCategory);
+      this.natStorage.getItem("user").then(user=>{
+        this.newsProvider.get_News(user.id).subscribe(data=>{
+          if(data.length > 0){
+          console.log(data);
+          let news = new Array();
+          for(let i =0; i<data.length;i++){
+          news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage,data[i].NewsCategory);
           }
-          this.filteredNews = this.news;
-          this.ReadyNews = true;
+          this.natStorage.setItem("news",news);
+          console.log(news);
         }
+        },err=>{
+          console.log(err);
+        })
       },err=>{
-        alert("No conection");
+        alert(err);
       })
     })
+    
     this.natStorage.getItem('newsCate').then(data=>{
       this.newsCategories = data;
       this.ReadyCate = true;
     },err=>{
-      this.newsProvider.get_News_Category("1").subscribe(data=>{
+      this.natStorage.getItem("user").then(user=>{
+      this.newsProvider.get_News_Category(user.id).subscribe(data=>{
         if(data.length > 0){
           for(let i =0;i<data.length;i++){
             this.newsCategories[i] = new NewsCategory(data[i].NewsCategory,data[i].NewsCategoryID,data[i].NewsCategoryImage);
@@ -49,6 +60,7 @@ export class HomePage {
         }
         
       })
+    })
     })
   }
 

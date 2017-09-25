@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {  NavController, NavParams } from 'ionic-angular';
 import {ProductProvider} from '../../providers/product/product';
 /**
  * Generated class for the OrderPage page.
@@ -8,7 +8,6 @@ import {ProductProvider} from '../../providers/product/product';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-order',
   templateUrl: 'order.html',
@@ -21,7 +20,15 @@ export class OrderPage {
   public totalPrice:number = 0;
   public tableCode : number = 0;
 
+  public POSarr  : Array <{
+    posid  : any;
+    posindexed : Array<number>
+  }>
+
   constructor(public navCtrl: NavController, public navParams: NavParams , public ProdProvider : ProductProvider) {
+    this.orders = new Array();
+    this.viewOrder = new Array();
+    this.POSarr = new Array();
     this.orders = this.navParams.get("orders");
     this.userId = this.navParams.get("userid");
     console.log(this.orders);
@@ -36,59 +43,57 @@ export class OrderPage {
     }
   }
 
-
-  public confirmOrder(){
-    let ordersPerPOS = new Array();
-    let ordersCount  = new Array();
-    ordersCount.length = this.orders.length;
-    ordersCount.fill(0);
-    let ordersCounter = 0;
-    let ordersPerPOSCounter=0;
-    let count = 0;
-    for(let i =0 ; i<this.orders.length-1;i++){
-      if(ordersPerPOS.findIndex(this.orders[i].item.PosId) ==-1){
-        ordersPerPOS[ordersPerPOSCounter] = this.orders[i].item.PosId
-        ordersPerPOSCounter++;
-        ordersCount[ordersCounter]++;
-        for(let j =i+1;j< this.orders.length;j++){
-          if(this.orders[i].item.PosId == this.orders[j].item.PosId){
-            ordersCount[ordersCounter]++;
-          }
-        }
-        ordersCounter++;
-      }
-      count += this.orders[i].quantity;
-    }
-    console.log(count);
-    console.log(ordersPerPOS);
-    console.log(ordersCount);
-    let today  = new Date();
-    let time = today.getHours()+":"+today.getMinutes();
-    for()
-    for( let i = 0 ; i<ordersPerPOS.length;i++){
-      this.ProdProvider.add_invoice_header(count,this.totalPrice,this.userId,0,this.paymentMethod,0,ordersPerPOS[i],"Pending",0,this.tableCode,0,).subscribe(data=>{
-        
-            let invId=data;
-            for(let j = 0;j<this.orders.length;j++){
-              if(this.orders[j].quantity > 0){
-                this.ProdProvider.add_invoice_item(this.orders[j].item.category.id,this.orders[j].item.id,this.orders[i].quantity,this.orders[j].item.price,this.user.EmployeeID,0,this.paymentMethod,invId,"Pending",this.dToRestaurnat.id,this.tableCode,this.orders[j].comments).subscribe(Data=>{
-              alert(Data);
-            },Err=>{
-              alert(Err);
-            })
-              }
-              
-            }
-            
-          },err=>{
-            console.log(err);
-          })
-    }
-
-}
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderPage');
+  }
+
+  confirm(){
+    console.log("confirmming")
+    let counter = 0
+    this.POSarr = new Array();
+    for(let i = 0; i< this.viewOrder.length ; i++){
+      if(this.POSarr.length ==0){
+        this.POSarr.push({posid : this.viewOrder[i].item.PosId , posindexed : new Array()})
+        this.POSarr[0].posindexed.push(i);
+        counter ++;
+      }else{
+        let flag = false;
+        for( let k = 0 ; k< this.POSarr.length ; k++){
+          if(this.POSarr[k].posid == this.viewOrder[i].item.PosId){
+            this.POSarr[k].posindexed.push(i);
+            flag = true;
+            break;
+          }
+        }
+        if(flag == false ){
+          this.POSarr.push({posid : this.viewOrder[i].item.PosId , posindexed : [i]})
+        }
+      }
+    }
+    console.log(this.POSarr);
+
+    for(let i =0 ; i<this.POSarr.length;i++){
+      let totalprice = 0;
+      let totalcount = 0;
+      for(let j =0; j< this.POSarr[i].posindexed.length ; j ++){
+        totalprice += (this.viewOrder[this.POSarr[i].posindexed[j]].item.price*this.viewOrder[this.POSarr[i].posindexed[j]].quantity);
+        totalcount += this.viewOrder[this.POSarr[i].posindexed[j]].quantity;
+        console.log(this.viewOrder[this.POSarr[i].posindexed[j]])
+      
+      }
+     this.ProdProvider.add_invoice_header(totalcount,totalprice,this.userId,0,this.paymentMethod,0,this.POSarr[i].posid,"Pending",0,0,0).subscribe(data=>{
+      let invId=data;
+      for(let k =0; k < this.POSarr[i].posindexed.length ;k++){
+        this.ProdProvider.add_invoice_item(this.viewOrder[this.POSarr[i].posindexed[k]].item.category.id,this.viewOrder[this.POSarr[i].posindexed[k]].item.id,this.viewOrder[this.POSarr[i].posindexed[k]].quantity,this.viewOrder[this.POSarr[i].posindexed[k]].item.price,this.userId,0,this.paymentMethod,invId,"Pending",0,0,0).subscribe(data=>{
+          alert(data);
+        },err=>{
+          alert(err);
+        })
+      }
+     },err=>{
+       alert(err);
+     })
+    }
   }
 
 }
