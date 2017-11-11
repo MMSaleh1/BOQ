@@ -1,0 +1,24 @@
+page-opening {
+    .regester-button{
+        width: 90%;
+        color: #000;
+        background: #fede17;
+        margin-bottom: 13px;
+        margin-right: 4%;
+        height: 50px;
+    }
+    .landing-header{   
+        font-size: 1.5em;
+        text-align: center;
+        color: #fede17;
+    }
+    .or{
+        text-align: center;
+        font-size: 1.2em;
+        color: #fede17;
+    }
+    ion-content {
+    background-image: url('../assets/img/bg.jpg');
+    }
+}
+

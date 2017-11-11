@@ -1,16 +1,35 @@
 <ion-menu [content]="content">
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Menu</ion-title>
-          </ion-toolbar>
-        </ion-header>
         <ion-content>
-          <div *ngIf="POSReady && POSCategoryReady">
+          <div *ngIf="POSReady && POSCategoryReady" class="menu-content">
           <ion-row>
-            <div class="menu-header">
-                عربة التسوق                
-            </div>
+            <ion-col class="menu-header">
+                الرئيسيه                
+          </ion-col>
+          <ion-col class="menu-header">
+              <ion-icon class="menu-icon" name="arrow-back"></ion-icon>
+          </ion-col>
           </ion-row>
+          <ion-row>
+              <ion-col class="menu-header">
+                  حسابي                
+            </ion-col>
+            <ion-col class="menu-header">
+                <ion-icon class="menu-icon" name="arrow-back"></ion-icon>
+            </ion-col>
+            </ion-row>
+
+
+
+          <ion-row>
+            <ion-col class="menu-header">
+                عربه التسوق                
+          </ion-col>
+          <ion-col class="menu-header">
+              <ion-icon class="menu-icon" name="arrow-back"></ion-icon>
+          </ion-col>
+          </ion-row>
+
+
           <ion-row>
             <div class="menu-sub-header">
               عرض: 
@@ -26,16 +45,14 @@
                   الفئات
               </div>
             </ion-row>
-          <ion-row>
-            <ion-col>
-            </ion-col>
-          </ion-row>
             <ion-row>
                 <ion-searchbar [(ngModel)]="searchterm" (ionInput)="search()" placeholder="ابحث" ></ion-searchbar>
                 </ion-row>
-                <ion-row>
-                    <ion-list>
-                        <ion-item   *ngFor="let item of listedArr" (tap)="openpage(item)">
+
+
+                <ion-row class="menu-list-row">
+                    <ion-list class="menu-list">
+                        <ion-item class="menu-items"   *ngFor="let item of listedArr" (tap)="openpage(item)">
                             <ion-thumbnail item-start class="menu-thumbnail">
                                 <img class="menu-thumbnail-img" *ngIf="item.image" [src]="item.image">
                                 <img *ngIf="!item.image"class="menu-thumbnail-img" src="assets/img/no-img.jpeg" >
@@ -45,6 +62,7 @@
                         </ion-item>
                       </ion-list>
                 </ion-row>
+
               </div>
         </ion-content>
 </ion-menu>

@@ -1,24 +1,42 @@
 // http://ionicframework.com/docs/theming/
 .header-img{
-    max-width: 15%;
-    margin-right: 35%;
+    max-width: 75%;
+    margin-right: 45%;
+}
+.menu-list-row{
+
+}
+.menu-list-row .menu-list{
+    width: 100%;
+}
+.menu-list-row .menu-list .menu-items{
+    background-color: transparent;
+    color: #fff;
+    border: transparent;
+    width: 100%
+}
+.menu-content{
+    background-color: rgb(53,53,53);
 }
 .toolbar-title-md {
     padding: 0 12px;
     font-size: 2rem;
     font-weight: 500;
-    color: #424242;
+    color: rgb(122,122,122);
     margin: auto;
     width: 30%;
 }
 .menu-header{
-    border-top: black solid;
     width: 100%;
-    border-bottom: black solid;
-    font-size: 2em;
+    border-bottom: rgb(255, 255, 255) solid thin;
+    color: rgb(122,122,122);
+    font-size: 1.7em;
     padding-right: 20px;
     padding-bottom: 7px;
 } 
+.menu-header .menu-icon{
+    float: left;
+}
 .pos-select{
     width: 100%;
     background: #ffffff;
@@ -52,6 +70,12 @@
 p{
     white-space: normal;
     overflow: auto;
+}
+
+ion-content {
+    
+    background-color: transparent;
+    background-image: url('../assets/img/bg-B.jpg');
 }
 
 // App Global Sass

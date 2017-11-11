@@ -16,4 +16,26 @@ page-landing {
         max-width: 15%;
         margin-right: 41%;
     }
+    .logo-container{
+        width : 100%;
+        margin : auto;
+    }
+    .spinner-content{
+        width: 55%;
+        margin: auto;
+        margin-top: -23%;
+    }
+    .spinner{
+        z-index: 9999;
+        
+        animation: round 2s linear infinite ;
+    }
+    ion-content {
+        background-image: url('../assets/img/bg.jpg');
+        }
+}
+
+ @keyframes round{
+    from{transform: rotate(0deg)}
+    to{transform: rotate(360deg)}
 }

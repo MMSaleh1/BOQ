@@ -14,6 +14,7 @@ import { LoginPage } from '../pages/login/login';
 import {LandingPage} from '../pages/landing/landing';
 import{Category,Product,Resturant,PosCategory} from '../templates/pos';
 import {News ,NewsCategory} from '../templates/news';
+import {OpeningPage} from '../pages/opening/opening';
 
 @Component({
   templateUrl: 'app.html'
@@ -51,6 +52,8 @@ export class MyApp {
         this.POS = data;
         this.listedArr = this.POS;
         this.POSReady = true;
+        this.checkstatus();
+        
       },err=>{
         this.productProvider.get_POS().subscribe(pos=>{ // getting points of sale from the API
           if(pos.length >0){ // check if there is no POS
@@ -99,6 +102,8 @@ export class MyApp {
                 //console.log(this.POS);
                 //console.log(ProductArr);
                 this.POSReady = true;
+                this.checkstatus();
+                
                 
               }
               
@@ -127,6 +132,7 @@ export class MyApp {
       this.natStorage.getItem("PCat").then(data=>{
         this.PosCategories = data;
         this.POSCategoryReady=true;
+        this.checkstatus();
       },err=>{
         this.productProvider.get_POS_category().subscribe(data=>{
           if(data.length>0){
@@ -136,6 +142,7 @@ export class MyApp {
           }
           this.POSCategoryReady=true;
           this.natStorage.setItem("PCat",this.PosCategories);
+          this.checkstatus();          
           console.log(this.PosCategories);
 
           }
@@ -146,18 +153,25 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.natStorage.getItem('user').then(data=>{
-        this.rootPage = HomePage;
-        this.nav.setRoot(this.rootPage);
-      },err=>{
-        this.rootPage = LandingPage;
-        this.nav.setRoot(this.rootPage);
-      })
-     
+      console.log(this.POSCategoryReady , this.POSReady);
+
     });
   }
   public search(){
    this.listedArr= this.searchFilter.filter(this.filterby == "company" ?this.POS : this.PosCategories,this.searchterm);
+  }
+
+  public checkstatus(){
+    if(this.POSCategoryReady && this.POSReady){
+      this.natStorage.getItem('user').then(data=>{
+        this.rootPage = HomePage;
+        this.nav.setRoot(this.rootPage);
+      },err=>{
+        this.rootPage = OpeningPage;
+        this.nav.setRoot(this.rootPage);
+      })
+
+    }
   }
   public changeFlter(number : any){
     this.filterby =number==0 ?"company":"categories";

@@ -1,10 +1,29 @@
 page-registeration {
+    .img-container{
+        background-image: url('../assets/img/up.png') ;
+     }
 .header-img{
-    margin-right: 30%;
-    max-width: 18%;
-}
+        margin-right: 11%;
+        max-width: 76%;
+    }
+    .text-header{
+        color: #fede17;
+        text-align: center;
+    }
 .text-cont{
     margin: auto;
+}
+.form{
+    width : 80%;  
+    margin: auto      
+}
+.text-input-md{
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    width: 100%;
+    border: 0;
+    background: #ffffff;
 }
 .text{
     margin-top: 1rem !important;
@@ -17,14 +36,43 @@ page-registeration {
 }
 .gender-select{
     width: 100%;
+    background: #fff;
     border: solid #dedede;
     border-width: 1px;
     max-width: 100%;
 }
 .regester-button{
     width: 100%;
-    background: #000;
-    margin-bottom: 13px;
-    margin-top: -9px;
+    margin: auto;
+    color: #000;
+    height: 50px;
+    background: #fede17;
 }
+
+ion-content {
+    background-image: url('../assets/img/bg-B.jpg');
+    }
+ion-header{
+    border-color: transparent;
+    background-color: transparent;
+        
+    }
+    .toolbar-background-md{
+        border-color: transparent;
+        background-color: transparent;
+    }
+    .toolbar-background-ios{
+        border-color: transparent;
+        background-color: transparent;
+
+    }
+    ion-navbar.toolbar{
+        border-color: transparent;
+        background-color: transparent;
+        
+    }
+    .scroll-content {
+        padding: 0px !important;
+        margin-top: 0px !important;
+    }
 }

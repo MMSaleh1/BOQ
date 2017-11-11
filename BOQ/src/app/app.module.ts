@@ -19,6 +19,8 @@ import { LoginPage} from '../pages/login/login';
 import { RegisterationPage} from '../pages/registeration/registeration';
 import {LandingPage} from '../pages/landing/landing';
 import {OrderPage} from '../pages/order/order';
+import {OpeningPage} from '../pages/opening/opening';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -28,7 +30,8 @@ import {OrderPage} from '../pages/order/order';
     RegisterationPage,
     LoginPage,
     LandingPage,
-    OrderPage
+    OrderPage,
+    OpeningPage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import {OrderPage} from '../pages/order/order';
     RegisterationPage,
     LoginPage,
     LandingPage,
-    OrderPage
+    OrderPage,
+    OpeningPage
   ],
   providers: [
     StatusBar,
