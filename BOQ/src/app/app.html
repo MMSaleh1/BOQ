@@ -6,32 +6,8 @@
         </ion-header>
         <ion-content>
           <div *ngIf="POSReady && POSCategoryReady">
-          <ion-row>
-            <div class="menu-header">
-                عربة التسوق                
-            </div>
-          </ion-row>
-          <ion-row>
-            <div class="menu-sub-header">
-              عرض: 
-            </div>
-          </ion-row>
-          <ion-row>
-            <div (tap)="changeFlter(0)" class="menu-filters">
-              الشركات
-            </div>
-          </ion-row>
-          <ion-row>
-              <div (tap)="changeFlter(1)" class="menu-filters"> 
-                  الفئات
-              </div>
-            </ion-row>
-          <ion-row>
-            <ion-col>
-            </ion-col>
-          </ion-row>
             <ion-row>
-                <ion-searchbar [(ngModel)]="searchterm" (ionInput)="search()" placeholder="ابحث" ></ion-searchbar>
+                <ion-searchbar [(ngModel)]="searchterm" (ionInput)="search()" placeholder="Search" ></ion-searchbar>
                 </ion-row>
                 <ion-row>
                     <ion-list>
@@ -40,8 +16,7 @@
                                 <img class="menu-thumbnail-img" *ngIf="item.image" [src]="item.image">
                                 <img *ngIf="!item.image"class="menu-thumbnail-img" src="assets/img/no-img.jpeg" >
                               </ion-thumbnail>
-                          {{item.name}}
-                  
+                              <p>{{item.name}}</p>
                         </ion-item>
                       </ion-list>
                 </ion-row>

@@ -16,6 +16,13 @@ export class HomePage {
   public filteredNews : Array<any>
   public ReadyNews : boolean =false;
   public ReadyCate : boolean =false;
+
+  public ActiveNow : number =-1;
+
+
+
+
+
   constructor(public navCtrl: NavController,public natStorage :NativeStorage,public newsProvider :NewsProvider) {
     this.news = new Array();
     this.filteredNews = new Array();
@@ -26,8 +33,8 @@ export class HomePage {
       //alert(this.filteredNews[0].title);
       this.ReadyNews = true;
     },err=>{
-      this.natStorage.getItem("user").then(user=>{
-        this.newsProvider.get_News(user.id).subscribe(data=>{
+      //this.natStorage.getItem("user").then(user=>{
+        this.newsProvider.get_News(1940).subscribe(data=>{
           if(data.length > 0){
           console.log(data);
           
@@ -42,17 +49,17 @@ export class HomePage {
         },err=>{
           console.log(err);
         })
-      },err=>{
-        alert(err);
-      })
+     // },err=>{
+    //    alert(err);
+     // })
     })
     
     this.natStorage.getItem('newsCate').then(data=>{
       this.newsCategories = data;
       this.ReadyCate = true;
     },err=>{
-      this.natStorage.getItem("user").then(user=>{
-      this.newsProvider.get_News_Category(user.id).subscribe(data=>{
+     // this.natStorage.getItem("user").then(user=>{
+      this.newsProvider.get_News_Category(1940).subscribe(data=>{
         if(data.length > 0){
           for(let i =0;i<data.length;i++){
             this.newsCategories[i] = new NewsCategory(data[i].NewsCategory,data[i].NewsCategoryID,data[i].NewsCategoryImage);
@@ -62,13 +69,14 @@ export class HomePage {
         }
         
       })
-    },err=>{
-      alert(err);
-    })
+  //  },err=>{
+   //   alert(err);
+  //  })
     })
   }
 
-  filter(category :any = ""){
+  filter(category :any = "",ActiveNum : any =-1){
+    this.ActiveNow = ActiveNum;
     this.filteredNews = new Array();
     if(category ==""){
       this.filteredNews = this.news;

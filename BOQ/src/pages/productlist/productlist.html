@@ -10,115 +10,68 @@
 
 
 <ion-content padding>
-  <div *ngIf="Ready"><button ion-button class="order-button" (tap)="order()"> اطلب</button></div>
-  <div style="height : 100%;" *ngIf="type ==0 && Ready ">
-      
-      <div style=" height : 80%;">
-        <ion-scroll class="scroll-content" scrollY="true">   
-          <ion-list style="height : 100%;">
-     <ion-item class="item-container" *ngFor="let item of itemBase.products ; let index = index ; trackBy:trackByIndex;">
-       <ion-row>
-         <ion-col col-auto class="product-img-cont">
-            <ion-thumbnail item-start class="product-thumbnail">
-            <img class="product-img" *ngIf="item.imageUrl" [src]="item.imageUrl">
-            <img *ngIf="!item.imageUrl" class="product-img" src="assets/img/no-img.jpeg" >
-            </ion-thumbnail>
-         </ion-col>
-         <ion-col>
-            <p>{{item.name}}</p>
-            <p>{{itemBase.name}}</p>
-            <p>{{item.price}} LE</p>
-         </ion-col>
-         <ion-col col-1>
-         <ion-row>
-           <ion-col><div class="rest-button" (tap)="changeNumber('add',index)"> 
-              <ion-icon class="icon-no-margin" name="add" ></ion-icon>
-           </div></ion-col>
-            
-         </ion-row>
-         <ion-row>
-                <ion-col>
-                    <div   class="rest-input">
-                        {{orders[index].quantity}}
-                      </div>
-                </ion-col>
-          </ion-row>
-         <ion-row><ion-col>
-            <div class="rest-button" (tap)="changeNumber('remove',index)" >
-                <ion-icon  class="icon-no-margin"   name="remove" ></ion-icon>
-            </div></ion-col>
-        </ion-row>
-         </ion-col>
-       </ion-row>
-        
-     </ion-item>
-     
-   </ion-list>
-  </ion-scroll>  
-</div>
-  <button ion-button class="profile-button" (tap)="goToPage()">معلومات الشركه</button>
-  </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div style="height : 100%;" *ngIf="type ==1 && Ready ">
-  
-  <div style=" height : 80%;">
-    <ion-scroll class="scroll-content" scrollY="true">   
-      <ion-list style="height : 100%;">
- <ion-item class="item-container" *ngFor="let element of listedPos ; let index = index ; trackBy:trackByIndex;">
-   <ion-row>
-     <ion-col col-auto class="product-img-cont">
-        <ion-thumbnail item-start class="product-thumbnail">
-        <img class="product-img" *ngIf="element.item.imageUrl" [src]="element.item.imageUrl">
-        <img *ngIf="!element.item.imageUrl" class="product-img" src="assets/img/no-img.jpeg" >
-        </ion-thumbnail>
-     </ion-col>
-     <ion-col>
-        <p>{{element.item.name}}</p>
-        <p>{{element.pos}}</p>
-        <p>{{element.item.price}} LE</p>
-     </ion-col>
-     <ion-col col-1>
-     <ion-row>
-       <ion-col><div class="rest-button" (tap)="changeNumber('add',index)"> 
-          <ion-icon class="icon-no-margin" name="add" ></ion-icon>
-       </div></ion-col>
-        
-     </ion-row>
-     <ion-row>
-            <ion-col>
-                <div   class="rest-input">
-                    {{orders[index].quantity}}
-                  </div>
-            </ion-col>
+  <div *ngIf="Ready">
+      <ion-row>
+          <ion-searchbar [(ngModel)]="SearchTerm" (ionInput)="search()" placeholder="Search" ></ion-searchbar>
       </ion-row>
-     <ion-row><ion-col>
-        <div class="rest-button" (tap)="changeNumber('remove',index)" >
-            <ion-icon  class="icon-no-margin"   name="remove" ></ion-icon>
-        </div></ion-col>
-    </ion-row>
-     </ion-col>
-   </ion-row>
+      <ion-row>
+          <button ion-button class="order-button" (tap)="order()">Order</button>
+      </ion-row>
     
- </ion-item>
- 
-</ion-list>
-</ion-scroll>  
-</div>
   </div>
+<ion-scroll scrollY="true" style="height: 100%;" *ngIf="type ==1 && Ready ">
+    
+          <ion-list>
+            <ion-item  *ngFor="let element of listedPos ; let index = index ; trackBy:trackByIndex">
+              <ion-row>
+                <ion-col col-auto>
+                <ion-thumbnail item-start>
+                    <img *ngIf="element.item.imageUrl"  [src]="element.item.imageUrl" >
+                    <img *ngIf="!element.item.imageUrl"  src="assets/img/no-img.jpeg">
+                </ion-thumbnail>
+                </ion-col>
+    
+    
+    
+                <ion-col>
+                <ion-row  class="desc-row">
+                <p>{{element.item.name}}</p>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                  <p>{{element.item.price}} LE</p>
+                    </ion-col>
+    
+                    <ion-col>
+                        <button class="rest-button" (tap)="changeNumber('remove',index)" ion-button>
+                            <ion-icon  class="icon-no-margin"   name="remove" ></ion-icon>
+                         </button>
+                    </ion-col>
+    
+                    <ion-col>
+                        <div   class="rest-input">
+                            {{orders[index].quantity}}
+                          </div>
+                    </ion-col>
+    
+                    <ion-col>
+                        <button class="rest-button" ion-button (tap)="changeNumber('add',index)"> 
+                            <ion-icon class="icon-no-margin" name="add" ></ion-icon>
+                          </button>
+                    </ion-col>
+                    
+                  </ion-row>
+
+                  <ion-row>
+                      <p>{{element.pos}}</p>
+                    </ion-row>
+                </ion-col>
+              </ion-row>
+    
+    
+            </ion-item>
+          </ion-list>
+    
+      </ion-scroll>
 </ion-content>

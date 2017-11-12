@@ -5,16 +5,24 @@
 
 <ion-content padding>
   <div *ngIf="ReadyCate && ReadyNews">  
-    <div  style="border-bottom: solid black;">
-      <ion-slides  loop="false"  pager="false" parallax="true" dir="rtl" slidesPerView='4'>
-          <ion-slide (tap)="filter()">
-              كل
+      <ion-slides  loop="false"  pager="false" parallax="true" dir="ltr" slidesPerView='4'>
+          <ion-slide class="cat-slide" (tap)="filter()">
+            <div *ngIf="ActiveNow == -1"class="cat-slide-activated">
+                All
+            </div>
+            <div *ngIf="ActiveNow != -1" >
+                All
+            </div>
             </ion-slide>
-          <ion-slide *ngFor="let slide of newsCategories" (tap)="filter(slide)">
-            {{slide.name}}
+          <ion-slide *ngFor="let slide of newsCategories ; let i= index" (tap)="filter(slide,i)">
+            <div *ngIf="ActiveNow == i" class="cat-slide-activated">
+                {{slide.name}}
+            </div>
+            <div *ngIf="ActiveNow !=i">
+                {{slide.name}}
+            </div>
           </ion-slide>
        </ion-slides>
-  </div>
   <div>
     <ion-list>
       <ion-item *ngFor="let item of filteredNews">

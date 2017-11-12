@@ -47,9 +47,10 @@ export class MyApp {
       this.POS = new Array();
       this.listedArr = new Array();
       this.products = new Array();
+
+      
       this.natStorage.getItem("POS").then(data=>{
         this.POS = data;
-        this.listedArr = this.POS;
         this.POSReady = true;
       },err=>{
         this.productProvider.get_POS().subscribe(pos=>{ // getting points of sale from the API
@@ -92,7 +93,6 @@ export class MyApp {
                   } 
                 }
                 this.POS = POSArr;
-                this.listedArr = this.POS;
                 this.natStorage.setItem("POS",this.POS);
                 this.products = ProductArr;
                 ////console.log(categories);
@@ -126,6 +126,7 @@ export class MyApp {
       )
       this.natStorage.getItem("PCat").then(data=>{
         this.PosCategories = data;
+        this.listedArr = this.PosCategories;
         this.POSCategoryReady=true;
       },err=>{
         this.productProvider.get_POS_category().subscribe(data=>{
@@ -136,6 +137,7 @@ export class MyApp {
           }
           this.POSCategoryReady=true;
           this.natStorage.setItem("PCat",this.PosCategories);
+          this.listedArr = this.PosCategories;
           console.log(this.PosCategories);
 
           }
@@ -157,16 +159,10 @@ export class MyApp {
     });
   }
   public search(){
-   this.listedArr= this.searchFilter.filter(this.filterby == "company" ?this.POS : this.PosCategories,this.searchterm);
-  }
-  public changeFlter(number : any){
-    this.filterby =number==0 ?"company":"categories";
-    this.listedArr = number==0 ?this.POS : this.PosCategories;
-    console.log(this.filterby);
+   this.listedArr= this.searchFilter.filter(this.PosCategories,this.searchterm);
   }
   public openpage(item : any){
-    let pageType;
-    this.filterby == "company" ? pageType = 0 : pageType = 1;
+    let pageType = 1;
     
     this.nav.push(ProductlistPage , {"item" : item , "pageType" : pageType , "pos" : pageType == 0 ? [] : this.POS})
     this.menuCtrl.close();

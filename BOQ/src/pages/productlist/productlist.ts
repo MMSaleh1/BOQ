@@ -6,6 +6,8 @@ import {Category,PosCategory,Product,Resturant} from '../../templates/pos';
 
 import { PosprofilePage} from '../posprofile/posprofile';
 import { OrderPage} from '../order/order';
+
+import { SearchfilterProvider} from '../../providers/searchfilter/searchfilter';
 /**
  * Generated class for the ProductlistPage page.
  *
@@ -24,21 +26,23 @@ export class ProductlistPage {
   public type : any;
   public userid : string;
   public Ready : boolean = false;
+  public SearchTerm : string = "";
   public listedPos :Array<{
    item : Product,
    pos : string;
   }>;
+  public listedArr : any;
   private orders : Array<{
     item: Product;
     quantity: number;
   }>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams , public natStorage : NativeStorage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams , public natStorage : NativeStorage,public searchFilter : SearchfilterProvider,) {
     this.listedPos = new Array();
-    this.natStorage.getItem('user').then(data=>{
+     this.natStorage.getItem('user').then(data=>{
       this.userid = data.id;
     },err=>{
-      this.userid = '1';
+      this.userid = '1940';
     })
     this.itemBase = navParams.get('item');
     this.data = navParams.get('pos');
@@ -47,10 +51,7 @@ export class ProductlistPage {
     //console.log(this.data);
     //console.log(this.type);
 
-    if(this.type==0 && this.itemBase.products[0].id !="-1"){
-      this.Ready=true;
-    }
-    else if(this.type ==1 && this.data.length >0){
+    if(this.type ==1 && this.data.length >0){
       let counter = 0;
       for(let i = 0 ;i <this.data.length ; i++){
         if(this.data[i].category == this.itemBase.id){
@@ -66,7 +67,7 @@ export class ProductlistPage {
         }
         
       }
-      //console.log(this.listedPos);
+      console.log(this.listedPos);
       this.Ready=true;
 
     }
@@ -125,4 +126,9 @@ export class ProductlistPage {
   goToPage(){
     this.navCtrl.push(PosprofilePage,{'pos': this.itemBase});
   }
+  
+
+  public search(){
+    this.listedArr= this.searchFilter.filter(this.itemBase.products,this.SearchTerm);
+   }
 }
