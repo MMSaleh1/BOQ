@@ -7,7 +7,7 @@
     padding: 0 12px;
     font-size: 2rem;
     font-weight: 500;
-    color: #424242;
+    color: rgb(254, 222, 23) ;
     margin: auto;
     width: 30%;
 }
@@ -74,12 +74,16 @@ ion-content{
     background: transparent;
 }
 
-.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default{
-    color: #f9b20be3;
+.bar-button-default-md{
+    color: rgb(254, 222, 23) ;
 }
 .button-md{
     background-color: rgb(254, 222, 23) !important;
     color: #000 !important;
+}
+.item-md p{
+    color : rgb(254, 222, 23) ;
+    
 }
 
 // App Global Sass

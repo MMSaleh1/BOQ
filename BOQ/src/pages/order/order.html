@@ -39,5 +39,5 @@
       </ion-list>
     </ion-scroll>
   </div>
-  <button ion-button class="order-button" (tap)="confirm()"> Confirm Order</button>
+  <button ion-button class="order-button" (tap)="confirm()" *ngIf="!confirmed"> Confirm Order</button>
 </ion-content>

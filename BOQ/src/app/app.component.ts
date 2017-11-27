@@ -54,13 +54,13 @@ export class MyApp {
         this.POSReady = true;
       },err=>{
         this.productProvider.get_POS().subscribe(pos=>{ // getting points of sale from the API
-          if(pos.length >0){ // check if there is no POS
+          if(pos  != undefined && pos.length >0){ // check if there is no POS
           let POSArr = new Array(); // create array to store the POS
           this.productProvider.get_Product().subscribe(Data=>{ // get the products from API , to put each product in its POS
-            if(Data.length > 0 ){// check if there is no product 
+            if(Data != undefined && Data.length > 0 ){// check if there is no product 
               let ProductArr = new Array(); // create array to store the products
              this.productProvider.get_Product_Category().subscribe(data=>{
-                if(data.length > 0){
+                if(data  != undefined &&data.length > 0){
                 let categories = new Array();
                 for(let i =0 ; i<data.length;i++){
                   categories[i]= new Category(data[i].category_name,data[i].category_id);
@@ -104,14 +104,14 @@ export class MyApp {
               
         
              },err=>{
-               alert("1");
+               alert(err);
              })
               
               
             }
         
           },err=>{
-            alert("2");
+            alert(err);
           })
           
           
@@ -119,7 +119,7 @@ export class MyApp {
           alert("No POS");
         }
         },err=>{
-          alert("3");
+          alert(err);
         });
 
       }
@@ -164,7 +164,7 @@ export class MyApp {
   public openpage(item : any){
     let pageType = 1;
     
-    this.nav.push(ProductlistPage , {"item" : item , "pageType" : pageType , "pos" : pageType == 0 ? [] : this.POS})
+    this.nav.push(ProductlistPage , {"item" : item , "pageType" : pageType , "pos" :  this.POS})
     this.menuCtrl.close();
   }
 }

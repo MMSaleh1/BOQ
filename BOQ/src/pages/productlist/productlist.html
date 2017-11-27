@@ -15,15 +15,44 @@
       <ion-row>
           <ion-searchbar [(ngModel)]="SearchTerm" (ionInput)="search()" placeholder="Search" ></ion-searchbar>
       </ion-row>
+
+
+      <ion-row>
+      <ion-slides  loop="false"  pager="false" parallax="true" dir="ltr" slidesPerView='4'>
+        <ion-slide class="cat-slide" (tap)="filter()">
+          <div *ngIf="ActiveNow == -1"class="cat-slide-activated">
+              All
+          </div>
+          <div *ngIf="ActiveNow != -1" >
+              All
+          </div>
+          </ion-slide>
+        <ion-slide *ngFor="let slide of listedPos ; let i= index" (tap)="filter(slide,i)">
+          <div *ngIf="ActiveNow == i" class="cat-slide-activated">
+              {{slide.name}}
+          </div>
+          <div *ngIf="ActiveNow !=i">
+              {{slide.name}}
+          </div>
+        </ion-slide>
+     </ion-slides>
+    </ion-row>
+
+
+
       <ion-row>
           <button ion-button class="order-button" (tap)="order()">Order</button>
       </ion-row>
+
+      <ion-row *ngIf="ActiveNow != -1">
+        <button ion-button class="pos-button" (tap)="goToPage()">provider`s page</button>
+    </ion-row>
     
   </div>
-<ion-scroll scrollY="true" style="height: 100%;" *ngIf="type ==1 && Ready ">
+<ion-scroll scrollY="true" style="height: 80%;" *ngIf="Ready ">
     
           <ion-list>
-            <ion-item  *ngFor="let element of listedPos ; let index = index ; trackBy:trackByIndex">
+            <ion-item  *ngFor="let element of listedArr ; let index = index ; trackBy:trackByIndex">
               <ion-row>
                 <ion-col col-auto>
                 <ion-thumbnail item-start>

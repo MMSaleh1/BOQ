@@ -19,6 +19,7 @@ export class OrderPage {
   public paymentMethod :number = 61 ;
   public totalPrice:number = 0;
   public tableCode : number = 0;
+  public confirmed : boolean = false;
 
   public POSarr  : Array <{
     posid  : any;
@@ -48,7 +49,8 @@ export class OrderPage {
   }
 
   confirm(){
-    console.log("confirmming")
+    this.confirmed == true;
+    console.log("confirmming");
     let counter = 0
     this.POSarr = new Array();
     for(let i = 0; i< this.viewOrder.length ; i++){
@@ -83,13 +85,21 @@ export class OrderPage {
       }
      this.ProdProvider.add_invoice_header(totalcount,totalprice,this.userId,0,this.paymentMethod,0,this.POSarr[i].posid,"Pending",0,0,0).subscribe(data=>{
       let invId=data;
+      let ordernumber =0;
       for(let k =0; k < this.POSarr[i].posindexed.length ;k++){
+        if(this.orders[i].quantity > 0){
         this.ProdProvider.add_invoice_item(this.viewOrder[this.POSarr[i].posindexed[k]].item.category.id,this.viewOrder[this.POSarr[i].posindexed[k]].item.id,this.viewOrder[this.POSarr[i].posindexed[k]].quantity,this.viewOrder[this.POSarr[i].posindexed[k]].item.price,this.userId,0,this.paymentMethod,invId,"Pending",0,0,0).subscribe(data=>{
-          alert(data);
+          ordernumber++;
+          if(ordernumber == this.viewOrder.length ){
+            alert ("Order Completed");
+            this.navParams.get("Parent").reset();
+            this.navCtrl.pop();
+          }
         },err=>{
           alert(err);
         })
       }
+    }
      },err=>{
        alert(err);
      })

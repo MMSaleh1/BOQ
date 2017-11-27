@@ -21,44 +21,54 @@ import { SearchfilterProvider} from '../../providers/searchfilter/searchfilter';
   templateUrl: 'productlist.html',
 })
 export class ProductlistPage {
-  public data : any;
-  public itemBase : any;
-  public type : any;
+  public pos : any;
+  public categoty : any;
   public userid : string;
   public Ready : boolean = false;
   public SearchTerm : string = "";
-  public listedPos :Array<{
+  public ActiveNow : any =-1;
+  public otherOrders :any[];
+  public TotalOrders : any[];
+  public listedProd :Array<{
    item : Product,
    pos : string;
+   name: string ; // for filtering
   }>;
   public listedArr : any;
+  public listedPos : any;
   private orders : Array<{
     item: Product;
     quantity: number;
+    
   }>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams , public natStorage : NativeStorage,public searchFilter : SearchfilterProvider,) {
+    this.listedProd = new Array();
     this.listedPos = new Array();
      this.natStorage.getItem('user').then(data=>{
       this.userid = data.id;
     },err=>{
       this.userid = '1940';
+    });
+    this.natStorage.getItem("orders").then(data=>{
+      this.otherOrders = data;
+    },err=>{
+      this.otherOrders =[];
     })
-    this.itemBase = navParams.get('item');
-    this.data = navParams.get('pos');
-    this.type = navParams.get('pageType');
-    //console.log(this.itemBase);
-    //console.log(this.data);
-    //console.log(this.type);
+    this.categoty = navParams.get('item');
+    this.pos = navParams.get('pos');
 
-    if(this.type ==1 && this.data.length >0){
+  //  console.log(this.categoty);
+  //  console.log(this.pos);
+      let posCouter =0;
       let counter = 0;
-      for(let i = 0 ;i <this.data.length ; i++){
-        if(this.data[i].category == this.itemBase.id){
-          //console.log("enter loop")
-          for(let j =0 ;j < this.data[i].products.length ; j++){
-            if(this.data[i].products[j].id !="-1"){
-              this.listedPos[counter]={item : this.data[i].products[j] , pos : this.data[i].name};
+      for(let i = 0 ;i <this.pos.length ; i++){
+        if(this.pos[i].category == this.categoty.id){
+          this.listedPos[posCouter]= this.pos[i];
+          posCouter++;
+          for(let j =0 ;j < this.pos[i].products.length ; j++){
+            if(this.pos[i].products[j].id !="-1"){
+              this.listedProd[counter]={item : this.pos[i].products[j] , pos : this.pos[i].name,name : this.pos[i].products[j].name};
               counter++;
             }
             
@@ -67,11 +77,11 @@ export class ProductlistPage {
         }
         
       }
+     
+      this.listedArr=this.listedProd;
       console.log(this.listedPos);
       this.Ready=true;
-
-    }
-    this.setPos();
+    this.reset();
     
   }
   changeNumber(func : String,index : any){
@@ -99,23 +109,15 @@ export class ProductlistPage {
     }
     console.log(totalPrice);
     console.log(this.orders);
-    this.navCtrl.push(OrderPage,{"orders":this.orders ,"userid" :this.userid});
+    this.TotalOrders.concat(this.orders,this.otherOrders);
+    this.navCtrl.push(OrderPage,{"orders":this.TotalOrders ,"userid" :this.userid,"Parent" : this});
   }
 
   setPos(){
     this.orders= new Array();
-    if(this.type ==0){
-    this.orders.length =this.itemBase.products.length;
-    for(let i =0;i<this.orders.length;i++){
-      this.orders[i] ={item :this.itemBase.products[i],quantity:0}
-     //console.log(this.orders[i]);
-     
-    }
-  }else if(this.type == 1){
-    this.orders.length = this.listedPos.length;
+    this.orders.length = this.listedProd.length;
     for(let i =0 ; i<this.orders.length;i++){
-      this.orders[i] ={item :this.listedPos[i].item,quantity:0}
-    }
+      this.orders[i] ={item :this.listedProd[i].item,quantity:0}
     //console.log(this.orders);
   }
   }
@@ -124,11 +126,38 @@ export class ProductlistPage {
     //console.log('ionViewDidLoad ProductlistPage');
   }
   goToPage(){
-    this.navCtrl.push(PosprofilePage,{'pos': this.itemBase});
+    if(this.ActiveNow != -1){
+      this.navCtrl.push(PosprofilePage,{'pos': this.listedPos[this.ActiveNow]});
+    }
+    
   }
   
 
-  public search(){
-    this.listedArr= this.searchFilter.filter(this.itemBase.products,this.SearchTerm);
+   search(){
+    this.listedArr= this.searchFilter.filter(this.listedProd,this.SearchTerm);
    }
+
+   filter(pos :any = "",ActiveNum : any =-1){
+     this.setPos();
+    this.ActiveNow = ActiveNum;
+    this.listedArr = new Array();
+    if(pos == ""){
+      this.listedArr = this.listedProd;
+    }else{
+      let counter =0;
+      for(let i =0;i<this.listedProd.length ;i++){
+        if(pos.name == this.listedProd[i].pos){
+          this.listedArr[counter]= this.listedProd[i];
+          counter++;
+        }
+      }
+    }
+    
+    
+  }
+  public reset(){
+    this.setPos();
+    this.filter();
+  }
+
 }
