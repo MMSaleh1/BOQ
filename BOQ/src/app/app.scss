@@ -1,13 +1,13 @@
 // http://ionicframework.com/docs/theming/
 .header-img{
     max-width: 15%;
-    margin-right: 35%;
+    margin-left: 35%;
 }
 .toolbar-title-md {
     padding: 0 12px;
     font-size: 2rem;
     font-weight: 500;
-    color: #424242;
+    color: rgb(254, 222, 23) ;
     margin: auto;
     width: 30%;
 }
@@ -52,6 +52,38 @@
 p{
     white-space: normal;
     overflow: auto;
+    color: #fff;
+}
+.item-md{
+    background-color: transparent;
+}
+.list-md{
+    width: 97%;
+    background-color: transparent;
+}
+
+div{
+    color : #fff;
+}
+
+ion-content{
+    background-color: rgb(53,53,53) !important;
+}
+
+.toolbar-background-md{
+    background: transparent;
+}
+
+.bar-button-default-md{
+    color: rgb(254, 222, 23) ;
+}
+.button-md{
+    background-color: rgb(254, 222, 23) !important;
+    color: #000 !important;
+}
+.item-md p{
+    color : rgb(254, 222, 23) ;
+    
 }
 
 // App Global Sass

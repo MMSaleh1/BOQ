@@ -49,6 +49,8 @@ export class LoginPage {
       },err=>{
         console.log(err);
       })
+    }else{
+      console.log(this.loginForm.valid);
     }
 
   }

@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <img class="header-img" src="assets/img/BOQ.jpeg">
+    <img class="header-img" src="assets/img/BOQ.png">
   </ion-navbar>
 </ion-header>
 
@@ -16,11 +16,11 @@
         <ion-grid>
           <ion-row>
             <ion-col class="text-cont" col-3>
-              <h4 class="text">الاسم</h4>
+              <h4 class="text">Name</h4>
             </ion-col>
             
             <ion-col>
-                <ion-input type="text" class="reg-input" formControlName="name" placeholder=" ادخل الاسم "></ion-input>
+                <ion-input type="text" class="reg-input" formControlName="name" placeholder="Name"></ion-input>
             </ion-col>
           </ion-row>
 
@@ -28,10 +28,10 @@
 
           <ion-row>
               <ion-col class="text-con" col-3>
-                <h4 class="text"> الايميل</h4>
+                <h4 class="text"> Email</h4>
               </ion-col>
               <ion-col>
-                  <ion-input type="email" class="reg-input" formControlName="email" placeholder="ادخل الايميل"></ion-input>
+                  <ion-input type="email" class="reg-input" formControlName="email" placeholder="Email"></ion-input>
               </ion-col>
             </ion-row>
 
@@ -40,10 +40,10 @@
 
             <ion-row>
                 <ion-col class="text-con" col-3>
-                    <h4 class="text"> كلمه السر</h4>
+                    <h4 class="text">Password</h4>
                 </ion-col>
                 <ion-col>
-                    <ion-input type="password" class="reg-input" formControlName="password" placeholder="ادخل كلمه السر"></ion-input>
+                    <ion-input type="password" class="reg-input" formControlName="password" placeholder="Password"></ion-input>
                 </ion-col>
               </ion-row>
 
@@ -52,10 +52,10 @@
 
               <ion-row>
                   <ion-col class="text-con" col-3>
-                      <h4 class="text">رقم الهاتف</h4>
+                      <h4 class="text">Phone number</h4>
                   </ion-col>
                   <ion-col>
-                      <ion-input type="number" class="reg-input" formControlName="phone" placeholder="ادخل رقم الهاتف"></ion-input>
+                      <ion-input type="number" class="reg-input" formControlName="phone" placeholder="Phone Number"></ion-input>
                   </ion-col>
                 </ion-row>
 
@@ -64,12 +64,12 @@
 
                 <ion-row>
                     <ion-col class="text-con" col-3>
-                        <h4 class="text">النوع</h4>
+                        <h4 class="text">Gender</h4>
                     </ion-col>
                     <ion-col>
-                        <ion-select class="gender-select" formControlName="gender"  placeholder="اختر النوع" [(ngModel)]="gender" >
-                            <ion-option  [value]="male">ذكر</ion-option>
-                            <ion-option  [value]="female">انثي</ion-option>
+                        <ion-select class="gender-select" formControlName="gender"  placeholder="gender" [(ngModel)]="gender" >
+                            <ion-option  [value]="male">male</ion-option>
+                            <ion-option  [value]="female">female</ion-option>
                           </ion-select>
                     </ion-col>
                   </ion-row>
@@ -81,21 +81,21 @@
 
                   <ion-row>
                       <ion-col class="text-con" col-3>
-                          <h4 class="text">السكن</h4>
+                          <h4 class="text">Address</h4>
                       </ion-col>
                       <ion-col>
-                          <ion-select class="gender-select" formControlName="location"  placeholder="اختر المكان" [(ngModel)]="location" >
-                              <ion-option  [value]="SheikZayed">الشيخ زايد</ion-option>
-                              <ion-option  [value]="fifth">التجمع الخامس</ion-option>
-                              <ion-option  [value]="north-coast">الساحل الشمالي</ion-option>
-                              <ion-option  [value]="giza">الجيزه</ion-option>
+                          <ion-select class="gender-select" formControlName="location"  placeholder="Address" [(ngModel)]="location" >
+                              <ion-option  [value]="SheikZayed">SheikZayed</ion-option>
+                              <ion-option  [value]="fifth">altagamue alkhamis</ion-option>
+                              <ion-option  [value]="north-coast">north coast</ion-option>
+                              <ion-option  [value]="giza">giza</ion-option>
                             </ion-select>
                       </ion-col>
                     </ion-row>
   
                     <ion-row>
                       <ion-col>
-                          <button ion-button class="regester-button" type="submit">تسجيل الحساب</button>
+                          <button ion-button class="regester-button" type="submit">Regester</button>
                       </ion-col>
                     </ion-row>
         </ion-grid>
