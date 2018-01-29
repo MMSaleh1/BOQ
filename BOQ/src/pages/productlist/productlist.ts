@@ -8,6 +8,7 @@ import { PosprofilePage} from '../posprofile/posprofile';
 import { OrderPage} from '../order/order';
 
 import { SearchfilterProvider} from '../../providers/searchfilter/searchfilter';
+import { Cordova, CordovaCheck } from '@ionic-native/core';
 /**
  * Generated class for the ProductlistPage page.
  *
@@ -45,6 +46,10 @@ export class ProductlistPage {
   constructor(public navCtrl: NavController, public navParams: NavParams , public natStorage : NativeStorage,public searchFilter : SearchfilterProvider,) {
     this.listedProd = new Array();
     this.listedPos = new Array();
+    this.TotalOrders = new Array();
+    console.log(CordovaCheck);
+   // let asyncTemp =this.getFromStorage('user');
+    //console.log(asyncTemp);
      this.natStorage.getItem('user').then(data=>{
       this.userid = data.id;
     },err=>{
@@ -84,6 +89,12 @@ export class ProductlistPage {
     this.reset();
     
   }
+
+  async getFromStorage(key : string){
+    
+    return await this.natStorage.getItem(key);
+
+  }
   changeNumber(func : String,index : any){
     // console.log(this.orders.length);
      
@@ -107,9 +118,11 @@ export class ProductlistPage {
     for(let i =0; i< this.orders.length;i++){
       totalPrice += (this.orders[i].item.price*this.orders[i].quantity);
     }
-    console.log(totalPrice);
+    console.log(this.otherOrders);
     console.log(this.orders);
-    this.TotalOrders.concat(this.orders,this.otherOrders);
+    this.TotalOrders=this.otherOrders;
+    this.TotalOrders =this.TotalOrders.concat(this.orders);
+    console.log(this.TotalOrders);
     this.navCtrl.push(OrderPage,{"orders":this.TotalOrders ,"userid" :this.userid,"Parent" : this});
   }
 
