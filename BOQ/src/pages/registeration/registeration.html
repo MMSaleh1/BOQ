@@ -67,7 +67,7 @@
                         <h4 class="text">Gender</h4>
                     </ion-col>
                     <ion-col>
-                        <ion-select class="gender-select" formControlName="gender"  placeholder="gender" [(ngModel)]="gender" >
+                        <ion-select [interface]="popover" class="gender-select" formControlName="gender"  placeholder="gender" [(ngModel)]="gender" >
                             <ion-option  [value]="male">male</ion-option>
                             <ion-option  [value]="female">female</ion-option>
                           </ion-select>
@@ -84,7 +84,7 @@
                           <h4 class="text">Address</h4>
                       </ion-col>
                       <ion-col>
-                          <ion-select class="gender-select" formControlName="location"  placeholder="Address" [(ngModel)]="location" >
+                          <ion-select [interface]="popover" class="gender-select" formControlName="location"  placeholder="Address" [(ngModel)]="location" >
                               <ion-option  [value]="SheikZayed">SheikZayed</ion-option>
                               <ion-option  [value]="fifth">altagamue alkhamis</ion-option>
                               <ion-option  [value]="north-coast">north coast</ion-option>

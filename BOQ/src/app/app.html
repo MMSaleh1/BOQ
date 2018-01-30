@@ -5,6 +5,7 @@
           </ion-toolbar>
         </ion-header>
         <ion-content>
+            <button ion-button class="logout-button" (tap)="logout()">LogOut</button>
           <div *ngIf="POSReady && POSCategoryReady">
             <ion-row>
                 <ion-searchbar [(ngModel)]="searchterm" (ionInput)="search()" placeholder="Search" ></ion-searchbar>

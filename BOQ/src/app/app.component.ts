@@ -43,7 +43,7 @@ export class MyApp {
    
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
-
+      this.menuCtrl.enable(true);
       this.POS = new Array();
       this.listedArr = new Array();
       this.products = new Array();
@@ -166,6 +166,13 @@ export class MyApp {
     
     this.nav.push(ProductlistPage , {"item" : item , "pageType" : pageType , "pos" :  this.POS})
     this.menuCtrl.close();
+  }
+
+  public logout(){
+    this.natStorage.remove('user');
+    this.menuCtrl.enable(false);
+    this.nav.setRoot(LandingPage);
+    
   }
 }
 
