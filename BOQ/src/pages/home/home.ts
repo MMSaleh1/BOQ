@@ -1,5 +1,5 @@
 import { Component  } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 import {NativeStorage } from '@ionic-native/native-storage';
 import { NewsProvider }from '../../providers/news/news';
 
@@ -23,7 +23,9 @@ export class HomePage {
 
 
 
-  constructor(public navCtrl: NavController,public natStorage :NativeStorage,public newsProvider :NewsProvider) {
+  constructor(public navCtrl: NavController,public natStorage :NativeStorage,public newsProvider :NewsProvider,public menuCtrl : MenuController) {
+    this.menuCtrl.enable(true);
+    this.menuCtrl.swipeEnable(true);
     this.news = new Array();
     this.filteredNews = new Array();
     this.newsCategories = new Array();

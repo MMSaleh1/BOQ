@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  NavController, NavParams } from 'ionic-angular';
+import {  NavController, NavParams ,Platform } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage'; 
 
 import {Category,PosCategory,Product,Resturant} from '../../templates/pos';
@@ -8,7 +8,7 @@ import { PosprofilePage} from '../posprofile/posprofile';
 import { OrderPage} from '../order/order';
 
 import { SearchfilterProvider} from '../../providers/searchfilter/searchfilter';
-import { Cordova, CordovaCheck } from '@ionic-native/core';
+import { Cordova } from '@ionic-native/core';
 /**
  * Generated class for the ProductlistPage page.
  *
@@ -42,14 +42,28 @@ export class ProductlistPage {
     quantity: number;
     
   }>;
+  async getFromStorage(key : string){
+    
+    const value =  await this.natStorage.getItem(key);
+    console.log(value)
+    return value;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams , public natStorage : NativeStorage,public searchFilter : SearchfilterProvider,) {
+  }
+
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams ,
+     public natStorage : NativeStorage,
+     public searchFilter : SearchfilterProvider,
+     public platform : Platform
+    ) {
+
+
+
+
     this.listedProd = new Array();
     this.listedPos = new Array();
-    this.TotalOrders = new Array();
-    console.log(CordovaCheck);
-   // let asyncTemp =this.getFromStorage('user');
-    //console.log(asyncTemp);
+
+
      this.natStorage.getItem('user').then(data=>{
       this.userid = data.id;
     },err=>{
@@ -60,11 +74,10 @@ export class ProductlistPage {
     },err=>{
       this.otherOrders =[];
     })
-    this.categoty = navParams.get('item');
-    this.pos = navParams.get('pos');
-
-  //  console.log(this.categoty);
-  //  console.log(this.pos);
+      this.pos = navParams.get('pos');
+     this.categoty = navParams.get('item');
+    console.log(this.categoty);
+    console.log(this.pos);
       let posCouter =0;
       let counter = 0;
       for(let i = 0 ;i <this.pos.length ; i++){
@@ -90,16 +103,12 @@ export class ProductlistPage {
     
   }
 
-  async getFromStorage(key : string){
-    
-    return await this.natStorage.getItem(key);
-
-  }
+  
   changeNumber(func : String,index : any){
     // console.log(this.orders.length);
      
      //this.orders[index].item=this.choosenResturant.products[index]; //order is important  first change the item from defult
- 
+    
      if(func == 'add' && this.orders[index].quantity < this.orders[index].item.quantity){
        this.orders[index].quantity++; // then change its quantity
      }else if(func == 'remove'){
@@ -110,6 +119,9 @@ export class ProductlistPage {
          
        
      }
+     this.TotalOrders=this.otherOrders;
+    this.TotalOrders =this.TotalOrders.concat(this.orders);
+    this.natStorage.setItem("orders",this.TotalOrders);
      //console.log(this.orders);
    }
 
@@ -123,6 +135,7 @@ export class ProductlistPage {
     this.TotalOrders=this.otherOrders;
     this.TotalOrders =this.TotalOrders.concat(this.orders);
     console.log(this.TotalOrders);
+    this.natStorage.setItem("totalOrders",this.TotalOrders);
     this.navCtrl.push(OrderPage,{"orders":this.TotalOrders ,"userid" :this.userid,"Parent" : this});
   }
 
@@ -131,7 +144,7 @@ export class ProductlistPage {
     this.orders.length = this.listedProd.length;
     for(let i =0 ; i<this.orders.length;i++){
       this.orders[i] ={item :this.listedProd[i].item,quantity:0}
-    //console.log(this.orders);
+     //console.log(this.orders);
   }
   }
 
@@ -169,7 +182,7 @@ export class ProductlistPage {
     
   }
   public reset(){
-    this.setPos();
+  //  this.setPos();
     this.filter();
   }
 
