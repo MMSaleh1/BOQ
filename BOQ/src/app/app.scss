@@ -19,6 +19,15 @@
     margin: auto;
     width: 30%;
 }
+
+.toolbar-title-ios {
+    padding: 0 12px;
+    font-size: 2rem;
+    font-weight: 500;
+    color: rgb(254, 222, 23) ;
+    margin: auto;
+    
+}
 .menu-header{
     border-top: black solid;
     width: 100%;
@@ -57,6 +66,11 @@
     right: 16px;
 
 }
+
+.searchbar-ios .searchbar-search-icon {
+    right: 16px;
+
+}
 p{
     white-space: normal;
     overflow: auto;
@@ -65,7 +79,14 @@ p{
 .item-md{
     background-color: transparent;
 }
+.item-ios{
+    background-color: transparent;
+}
 .list-md{
+    width: 97%;
+    background-color: transparent;
+}
+.list-ios{
     width: 97%;
     background-color: transparent;
 }
@@ -81,11 +102,21 @@ ion-content{
 .toolbar-background-md{
     background: transparent;
 }
+.toolbar-background-ios{
+    background: transparent;
+}
 
 .bar-button-default-md{
     color: rgb(254, 222, 23) ;
 }
+.bar-button-default-ios{
+    color: rgb(254, 222, 23) ;
+}
 .button-md{
+    background-color: rgb(254, 222, 23) !important;
+    color: #000 !important;
+}
+.button-ios{
     background-color: rgb(254, 222, 23) !important;
     color: #000 !important;
 }
@@ -94,7 +125,10 @@ ion-content{
     
 }
 
-
+.item-ios p{
+    color : rgb(254, 222, 23) ;
+    
+}
 .item-radio-checked.item-md ion-label{
     color: #fede17 !important;
 }
@@ -113,10 +147,41 @@ ion-content{
 .radio-md .radio-inner{
     background-color: #fede17;
 }
+.radio-ios .radio-inner{
+    background-color: #fede17;
+}
 .item-radio.item-md ion-label{
     color: gray;
 }
+.item-radio.item-ios ion-label{
+    color: gray;
+}
 
+
+.item-ios {
+    padding-left: 16px;
+    border-radius: 0;
+    position: relative;
+    font-size: 1.7rem;
+    color: #000;
+    background-color: transparent; 
+    -webkit-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+}
+
+.item-ios.item-block .item-inner {
+    padding-right: 8px;
+    border-bottom: 0.55px solid #fede17;
+}
+
+.item-ios.item-input .item-input-has-focus .item-inner {
+    padding-right: 8px;
+    border-bottom: 0.55px solid #fede17;
+}
+
+ .item-ios .item-input .nginvalid .ngtouched:not(.item-input-has-focus):not(.input-has-focus) .item-inner{
+    border-bottom: 0.55px solid #FE4D17 !important;
+}
 
 
 // App Global Sass

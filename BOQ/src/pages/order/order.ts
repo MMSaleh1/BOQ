@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import {  NavController, NavParams } from 'ionic-angular';
-import {ProductProvider} from '../../providers/product/product';
+import { NavController, NavParams } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { HomePage } from '../home/home';
+import { ProductProvider } from '../../providers/product/product';
 /**
  * Generated class for the OrderPage page.
  *
@@ -13,20 +15,20 @@ import {ProductProvider} from '../../providers/product/product';
   templateUrl: 'order.html',
 })
 export class OrderPage {
-  public orders :Array<any>;
-  public userId : string;
-  public viewOrder : Array<any>;
-  public paymentMethod :number = 61 ;
-  public totalPrice:number = 0;
-  public tableCode : number = 0;
-  public confirmed : boolean = false;
+  public orders: Array<any>;
+  public userId: string;
+  public viewOrder: Array<any>;
+  public paymentMethod: number = 61;
+  public totalPrice: number = 0;
+  public tableCode: number = 0;
+  public confirmed: boolean = false;
 
-  public POSarr  : Array <{
-    posid  : any;
-    posindexed : Array<number>
+  public POSarr: Array<{
+    posid: any;
+    posindexed: Array<number>
   }>
 
-  constructor(public navCtrl: NavController, public navParams: NavParams , public ProdProvider : ProductProvider) {
+  constructor(public navCtrl: NavController, public natSorage: NativeStorage, public navParams: NavParams, public ProdProvider: ProductProvider) {
     this.orders = new Array();
     this.viewOrder = new Array();
     this.POSarr = new Array();
@@ -34,10 +36,10 @@ export class OrderPage {
     this.userId = this.navParams.get("userid");
     console.log(this.orders);
     console.log(this.userId);
-    let counter =0;
-    for(let i =0; i< this.orders.length;i++){
-      this.totalPrice += (this.orders[i].item.price*this.orders[i].quantity);
-      if(this.orders[i].quantity >0){
+    let counter = 0;
+    for (let i = 0; i < this.orders.length; i++) {
+      this.totalPrice += (this.orders[i].item.price * this.orders[i].quantity);
+      if (this.orders[i].quantity > 0) {
         this.viewOrder[counter] = this.orders[i];
         counter++;
       }
@@ -48,61 +50,67 @@ export class OrderPage {
     console.log('ionViewDidLoad OrderPage');
   }
 
-  confirm(){
+  confirm() {
     this.confirmed == true;
-    console.log("confirmming");
+    //alert("confirmming");
+    //alert(this.viewOrder.length);
     let counter = 0
     this.POSarr = new Array();
-    for(let i = 0; i< this.viewOrder.length ; i++){
-      if(this.POSarr.length ==0){
-        this.POSarr.push({posid : this.viewOrder[i].item.PosId , posindexed : new Array()})
+    for (let i = 0; i < this.viewOrder.length; i++) {
+      if (this.POSarr.length == 0) {
+        this.POSarr.push({ posid: this.viewOrder[i].item.PosId, posindexed: new Array() })
         this.POSarr[0].posindexed.push(i);
-        counter ++;
-      }else{
+        counter++;
+      } else {
         let flag = false;
-        for( let k = 0 ; k< this.POSarr.length ; k++){
-          if(this.POSarr[k].posid == this.viewOrder[i].item.PosId){
+        for (let k = 0; k < this.POSarr.length; k++) {
+          if (this.POSarr[k].posid == this.viewOrder[i].item.PosId) {
             this.POSarr[k].posindexed.push(i);
             flag = true;
             break;
           }
         }
-        if(flag == false ){
-          this.POSarr.push({posid : this.viewOrder[i].item.PosId , posindexed : [i]})
+        if (flag == false) {
+          this.POSarr.push({ posid: this.viewOrder[i].item.PosId, posindexed: [i] })
         }
       }
     }
-    console.log(this.POSarr);
+    //alert(this.POSarr.length);
+    let ordernumber = 0;
 
-    for(let i =0 ; i<this.POSarr.length;i++){
+    for (let i = 0; i < this.POSarr.length; i++) {
       let totalprice = 0;
       let totalcount = 0;
-      for(let j =0; j< this.POSarr[i].posindexed.length ; j ++){
-        totalprice += (this.viewOrder[this.POSarr[i].posindexed[j]].item.price*this.viewOrder[this.POSarr[i].posindexed[j]].quantity);
+      for (let j = 0; j < this.POSarr[i].posindexed.length; j++) {
+        totalprice += (this.viewOrder[this.POSarr[i].posindexed[j]].item.price * this.viewOrder[this.POSarr[i].posindexed[j]].quantity);
         totalcount += this.viewOrder[this.POSarr[i].posindexed[j]].quantity;
         console.log(this.viewOrder[this.POSarr[i].posindexed[j]])
-      
+
       }
-     this.ProdProvider.add_invoice_header(totalcount,totalprice,this.userId,0,this.paymentMethod,0,this.POSarr[i].posid,"Pending",0,0,0).subscribe(data=>{
-      let invId=data;
-      let ordernumber =0;
-      for(let k =0; k < this.POSarr[i].posindexed.length ;k++){
-        if(this.orders[i].quantity > 0){
-        this.ProdProvider.add_invoice_item(this.viewOrder[this.POSarr[i].posindexed[k]].item.category.id,this.viewOrder[this.POSarr[i].posindexed[k]].item.id,this.viewOrder[this.POSarr[i].posindexed[k]].quantity,this.viewOrder[this.POSarr[i].posindexed[k]].item.price,this.userId,0,this.paymentMethod,invId,"Pending",0,0,0).subscribe(data=>{
-          ordernumber++;
-          if(ordernumber == this.viewOrder.length ){
-            alert ("Order Completed");
-            this.navParams.get("Parent").reset();
-            this.navCtrl.pop();
-          }
-        },err=>{
-          alert(err);
-        })
-      }
-    }
-     },err=>{
-       alert(err);
-     })
+      this.ProdProvider.add_invoice_header(totalcount, totalprice, this.userId, 0, this.paymentMethod, 0, this.POSarr[i].posid, "Pending", 0, 0, 0).subscribe(data => {
+        let invId = data;
+
+
+        for (let k = 0; k < this.POSarr[i].posindexed.length; k++) {
+          // alert("for");
+
+          this.ProdProvider.add_invoice_item(this.viewOrder[this.POSarr[i].posindexed[k]].item.category.id, this.viewOrder[this.POSarr[i].posindexed[k]].item.id, this.viewOrder[this.POSarr[i].posindexed[k]].quantity, this.viewOrder[this.POSarr[i].posindexed[k]].item.price, this.userId, 0, this.paymentMethod, invId, "Pending", 0, 0, 0).subscribe(data => {
+            ordernumber++;
+            //alert(this.POSarr[i].posindexed.length);
+            if (ordernumber == this.viewOrder.length) {
+              alert("Order Completed");
+              this.natSorage.remove("orders");
+              //this.navParams.get("Parent").reset();
+              this.navCtrl.setRoot(HomePage);
+            }
+          }, err => {
+            alert(err);
+          })
+        }
+
+      }, err => {
+        alert(err);
+      })
     }
   }
 

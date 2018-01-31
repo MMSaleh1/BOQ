@@ -41,11 +41,11 @@
 
 
       <ion-row>
-          <button ion-button class="order-button" (tap)="order()">Order</button>
+          <button ion-button round class="order-button" (tap)="order()">Order</button>
       </ion-row>
 
       <ion-row *ngIf="ActiveNow != -1">
-        <button ion-button class="pos-button" (tap)="goToPage()">provider`s page</button>
+        <button ion-button round class="pos-button" (tap)="goToPage()">provider`s page</button>
     </ion-row>
     
   </div>
@@ -73,7 +73,7 @@
                     </ion-col>
     
                     <ion-col>
-                        <button class="rest-button" (tap)="changeNumber('remove',index)" ion-button>
+                        <button  class="rest-button" (tap)="changeNumber('remove',index)" ion-button>
                             <ion-icon  class="icon-no-margin"   name="remove" ></ion-icon>
                          </button>
                     </ion-col>
@@ -85,7 +85,7 @@
                     </ion-col>
     
                     <ion-col>
-                        <button class="rest-button" ion-button (tap)="changeNumber('add',index)"> 
+                        <button  class="rest-button" ion-button (tap)="changeNumber('add',index)"> 
                             <ion-icon class="icon-no-margin" name="add" ></ion-icon>
                           </button>
                     </ion-col>

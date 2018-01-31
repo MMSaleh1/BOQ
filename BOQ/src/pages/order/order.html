@@ -19,19 +19,30 @@
       <ion-list>
         <ion-item class="item-container" *ngFor="let element of viewOrder ; let index = index ; trackBy:trackByIndex;">
           <ion-row>
+              <ion-col col-auto>
+                  <ion-thumbnail item-start>
+                      <img *ngIf="element.item.imageUrl"  [src]="element.item.imageUrl" >
+                      <img *ngIf="!element.item.imageUrl"  src="assets/img/no-img.jpeg">
+                  </ion-thumbnail>
+                  </ion-col>
             <ion-col>
                 <ion-row>
-                    <ion-col col-3>{{element.item.name}}</ion-col>
+                    <ion-col col-5><p>{{element.item.name}}</p></ion-col>
                   </ion-row>
 
                   <ion-row>
-                      <ion-col col-3>Quantity</ion-col>
-                      <ion-col col-2>{{element.quantity}}</ion-col>
+                      <ion-col col-5><p>Quantity :</p></ion-col>
+                      <ion-col col-2><p>{{element.quantity}}</p></ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col col-5><p>Unit price:</p></ion-col>
+                      <ion-col col-2><p>{{element.item.price}}</p></ion-col>
                     </ion-row>
 
                     <ion-row>
-                        <ion-col col-2>Price:</ion-col>
-                        <ion-col col-2>{{element.item.price}}</ion-col>
+                        <ion-col col-5><p>Total Price:</p></ion-col>
+                        <ion-col col-3><p>{{element.item.price * element.quantity}}</p></ion-col>
+                        
                       </ion-row>
             </ion-col>
           </ion-row>
@@ -39,5 +50,5 @@
       </ion-list>
     </ion-scroll>
   </div>
-  <button ion-button class="order-button" (tap)="confirm()" *ngIf="!confirmed"> Confirm Order</button>
+  <button ion-button round class="order-button" (tap)="confirm()" *ngIf="!confirmed"> Confirm Order</button>
 </ion-content>

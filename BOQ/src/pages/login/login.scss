@@ -17,8 +17,21 @@ page-login {
     }
     .login-button{
         width: 100%;
-        background: #000;
-        margin-bottom: 13px;
-        margin-top: -9px;
+        
+      
     }
+    .item-label-stacked .select-md .item-label-floating .select-md{
+        padding-left: inherit !important;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    
+    }
+    .item-label-stacked{
+        margin-left: 7px;
+    
+    }
+    .reg-input{
+        margin-left: 12px;
+    }
+    
 }
