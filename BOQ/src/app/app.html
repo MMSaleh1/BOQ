@@ -1,11 +1,12 @@
 <ion-menu [content]="content">
         <ion-header>
           <ion-toolbar>
-            <ion-title>Menu</ion-title>
+
+                  <ion-title>Menu</ion-title>
           </ion-toolbar>
         </ion-header>
         <ion-content>
-            <button ion-button class="logout-button" (tap)="logout()">LogOut</button>
+           
           <div *ngIf="POSReady && POSCategoryReady">
             <ion-row>
                 <ion-searchbar [(ngModel)]="searchterm" (ionInput)="search()" placeholder="Search" ></ion-searchbar>
@@ -20,6 +21,9 @@
                               <p>{{item.name}}</p>
                         </ion-item>
                       </ion-list>
+                </ion-row>
+                <ion-row>
+                    <button ion-button round class="logout-button" (tap)="logout()">LogOut</button>
                 </ion-row>
               </div>
         </ion-content>

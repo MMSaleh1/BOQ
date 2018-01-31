@@ -17,22 +17,26 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <ion-grid>
             <ion-row>
-                <ion-col class="text-con" col-3>
-                  <h4 class="text"> Email</h4>
-                </ion-col>
-                <ion-col>
-                    <ion-input type="email" class="reg-input" formControlName="email" placeholder="Email"></ion-input>
+                <ion-col class="text-con">
+                    
+                  <ion-item>
+                        <ion-label stacked>
+                                Email
+                            </ion-label>
+                    <ion-input type="email" class="reg-input" formControlName="email" placeholder="Enter Your Email Here"></ion-input>                      
+                  </ion-item>
                 </ion-col>
               </ion-row>
 
-
-
             <ion-row>
-                <ion-col class="text-con" col-3>
-                    <h4 class="text">Password</h4>
-                </ion-col>
-                <ion-col>
-                    <ion-input type="password" class="reg-input" formControlName="password" placeholder="Password"></ion-input>
+                <ion-col class="text-con">
+                   <ion-item>
+                       <ion-label stacked>
+                           Password
+                       </ion-label>
+                       <ion-input type="password" class="reg-input" formControlName="password" placeholder="Enter Your Password Here"></ion-input>
+                   </ion-item>
+                    
                 </ion-col>
               </ion-row>
 
@@ -40,7 +44,7 @@
 
               <ion-row>
                   <ion-col>
-                      <button ion-button class="login-button" type="submit">LogIn</button>
+                      <button ion-button round class="login-button" type="submit">LogIn</button>
                   </ion-col>
                 </ion-row>
 
