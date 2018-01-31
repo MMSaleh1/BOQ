@@ -30,7 +30,7 @@ export class LoginPage {
     this.loginForm = this.formBuilder.group({
   
       password : ['',[Validators.required,Validators.maxLength(20),Validators.minLength(6)]],
-      email : ['',[Validators.required]]
+      email : ['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]]
     })
   }
 
@@ -44,13 +44,11 @@ export class LoginPage {
           this.natStorage.setItem("user",this.user);
           this.navCtrl.setRoot(HomePage , {"user" : this.user});
         }else{
-          console.log(data);
+          alert("Worng Username Or Password");
         }
       },err=>{
-        console.log(err);
+        alert("No Connection");
       })
-    }else{
-      console.log(this.loginForm.valid);
     }
 
   }

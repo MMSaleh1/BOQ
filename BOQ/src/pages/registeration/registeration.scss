@@ -3,29 +3,46 @@ page-registeration {
     margin-right: 30%;
     max-width: 18%;
 }
-.text-cont{
-    margin: auto;
+
+.label-md[stacked], .label-md[floating] {
+    margin-left: 7px;
+    margin-bottom: 0;
+}
+
+.label-ios[stacked], .label-ios[floating] {
+    margin-left: 7px;
+    margin-bottom: 0;
+}
+
+
+div{
+    color: gray;
+}
+.nav-decor{
+    color: gray;
+}
+.item-label-stacked .select-md, .item-label-floating .select-md{
+    padding-left: inherit !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
 }
 .text{
     margin-top: 1rem !important;
     font-size: 1.5rem;
     
 }
+.regs-select-option{
+    color: #000 !important;
+}
 .reg-input{
-    border: solid #dedede;
-    border-width: 1px;
-    width: 100%;
+    margin-left: 12px;
 }
 .gender-select{
-    width: 100%;
-    border: solid #dedede;
-    border-width: 1px;
-    max-width: 100%;
+    margin-left: 7px;
 }
 .regester-button{
     width: 100%;
-    background: #000;
-    margin-bottom: 13px;
-    margin-top: -9px;
+    
 }
 }

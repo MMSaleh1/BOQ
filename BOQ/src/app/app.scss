@@ -6,7 +6,10 @@
 .logout-button{
     width: 100%;
     background: #000;
-    margin-bottom: 13px
+    margin-bottom: 13px;
+    width: 40%;
+    margin:  auto;
+
 }
 .toolbar-title-md {
     padding: 0 12px;
@@ -90,6 +93,31 @@ ion-content{
     color : rgb(254, 222, 23) ;
     
 }
+
+
+.item-radio-checked.item-md ion-label{
+    color: #fede17 !important;
+}
+
+.item-radio-checked.item-ios ion-label{
+    color: #fede17;
+}
+
+.radio-md .radio-checked {
+    border-color: #fede17;
+}
+.radio-ios .radio-checked {
+    border-color: #fede17;
+}
+
+.radio-md .radio-inner{
+    background-color: #fede17;
+}
+.item-radio.item-md ion-label{
+    color: gray;
+}
+
+
 
 // App Global Sass
 // --------------------------------------------------
