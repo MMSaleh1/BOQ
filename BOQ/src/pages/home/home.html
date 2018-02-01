@@ -27,7 +27,7 @@
     <ion-list>
       <ion-item *ngFor="let item of filteredNews">
         <ion-row><ion-col>{{item.title}}</ion-col></ion-row>
-        <img [src]="item.image">
+        <ion-row><ion-col><img [src]="item.image"></ion-col></ion-row>
         <ion-row><ion-col><p>{{item.content}}</p></ion-col></ion-row>
        
       </ion-item>

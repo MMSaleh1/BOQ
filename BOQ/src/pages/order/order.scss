@@ -2,7 +2,7 @@ page-order {
     .scroll-content{
         width: 100%;
         margin: auto;
-        height: 82%;
+        height: 80%;
     }
     .item-container{
         background-color: transparent;
@@ -10,10 +10,24 @@ page-order {
     }
     .order-button{
         width: 100%;
-        background: #000;
-        margin-top: 20%;
+       z-index: 100;
+        margin-top: 10%;
+    }
+    .no-order{
+        margin: auto;
+        text-align: center;
+        color: rgb(254, 222, 23);
     }
     .order-cont{
         height: 70%
+    }
+    .button-danger{
+        background-color: danger;
+    }
+    .list-md ion-item-sliding {
+        background-color: transparent;
+    }
+    .list-ios ion-item-sliding {
+        background-color: transparent;
     }
 }

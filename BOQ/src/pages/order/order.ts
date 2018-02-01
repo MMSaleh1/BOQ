@@ -22,6 +22,7 @@ export class OrderPage {
   public totalPrice: number = 0;
   public tableCode: number = 0;
   public confirmed: boolean = false;
+  public Ready: boolean = false;
 
   public POSarr: Array<{
     posid: any;
@@ -34,8 +35,8 @@ export class OrderPage {
     this.POSarr = new Array();
     this.orders = this.navParams.get("orders");
     this.userId = this.navParams.get("userid");
-    console.log(this.orders);
-    console.log(this.userId);
+    //console.log(this.orders);
+    //console.log(this.viewOrder);
     let counter = 0;
     for (let i = 0; i < this.orders.length; i++) {
       this.totalPrice += (this.orders[i].item.price * this.orders[i].quantity);
@@ -44,6 +45,7 @@ export class OrderPage {
         counter++;
       }
     }
+   this.checkReady();
   }
 
   ionViewDidLoad() {
@@ -51,7 +53,7 @@ export class OrderPage {
   }
 
   confirm() {
-    this.confirmed == true;
+    this.confirmed = true;
     //alert("confirmming");
     //alert(this.viewOrder.length);
     let counter = 0
@@ -99,9 +101,9 @@ export class OrderPage {
             //alert(this.POSarr[i].posindexed.length);
             if (ordernumber == this.viewOrder.length) {
               alert("Order Completed");
-              this.natSorage.remove("orders");
+              this.deleteAll();
               //this.navParams.get("Parent").reset();
-              this.navCtrl.setRoot(HomePage);
+              
             }
           }, err => {
             alert(err);
@@ -113,5 +115,39 @@ export class OrderPage {
       })
     }
   }
+
+
+
+  delete(index : number){
+    if(index < this.viewOrder.length){
+      this.viewOrder[index].quantity=0;
+      for(let j =index+1; j<this.viewOrder.length;j++){
+        this.viewOrder[j-1]=this.viewOrder[j];
+      }
+      this.viewOrder.pop();
+      this.natSorage.setItem("orders",this.viewOrder);
+    }
+    this.checkReady();
+
+   
+      
+    
+    
+  }
+
+  deleteAll(){
+    this.natSorage.remove("orders");
+    this.navCtrl.setRoot(HomePage);
+  }
+
+  checkReady(){
+    if(this.viewOrder.length==0){
+      this.Ready=false;
+    }else{
+      this.Ready=true;
+    }
+  }
+    
+    
 
 }

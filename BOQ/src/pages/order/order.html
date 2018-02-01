@@ -15,9 +15,13 @@
     <ion-col><h4>{{totalPrice}} LE</h4></ion-col>
   </ion-row>
   <div class="order-cont">
+    <div *ngIf="!Ready">
+      <h1 class="no-order">NO ORDERS</h1>
+    </div>
     <ion-scroll class="scroll-content" scrollY="true">
       <ion-list>
-        <ion-item class="item-container" *ngFor="let element of viewOrder ; let index = index ; trackBy:trackByIndex;">
+          <ion-item-sliding *ngFor="let element of viewOrder ; let index = index ; trackBy:trackByIndex;" #item>
+        <ion-item class="item-container" >
           <ion-row>
               <ion-col col-auto>
                   <ion-thumbnail item-start>
@@ -27,28 +31,54 @@
                   </ion-col>
             <ion-col>
                 <ion-row>
-                    <ion-col col-5><p>{{element.item.name}}</p></ion-col>
+                    <ion-col col-8><p>{{element.item.name}}</p></ion-col>
                   </ion-row>
 
                   <ion-row>
-                      <ion-col col-5><p>Quantity :</p></ion-col>
-                      <ion-col col-2><p>{{element.quantity}}</p></ion-col>
+                      <ion-col col-8><p>Quantity :</p></ion-col>
+                      <ion-col col-3><p>{{element.quantity}}</p></ion-col>
                   </ion-row>
                   <ion-row>
-                      <ion-col col-5><p>Unit price:</p></ion-col>
-                      <ion-col col-2><p>{{element.item.price}}</p></ion-col>
+                      <ion-col col-8><p>Unit price:</p></ion-col>
+                      <ion-col col-3><p>{{element.item.price}}</p></ion-col>
                     </ion-row>
 
                     <ion-row>
-                        <ion-col col-5><p>Total Price:</p></ion-col>
+                        <ion-col col-8><p>Total Price:</p></ion-col>
                         <ion-col col-3><p>{{element.item.price * element.quantity}}</p></ion-col>
                         
                       </ion-row>
             </ion-col>
           </ion-row>
+
+          
         </ion-item>
+        <ion-item-options >
+          <!--
+            <button ion-button icon-only  (tap)="edit(index)">
+                <ion-icon name="ios-list-box-outline"></ion-icon>
+                
+              </button>
+              !-->
+            <button ion-button icon-only color="danger" (tap)="delete(index)">
+              <ion-icon name="ios-trash-outline"></ion-icon>
+              
+            </button>
+            
+          </ion-item-options>
+          </ion-item-sliding>
       </ion-list>
     </ion-scroll>
   </div>
-  <button ion-button round class="order-button" (tap)="confirm()" *ngIf="!confirmed"> Confirm Order</button>
+  <ion-row>
+    <ion-col col-6>
+        <button ion-button round class="order-button" (tap)="confirm()" *ngIf="Ready &&!confirmed"> Confirm Order</button>
+        
+    </ion-col>
+  <ion-col col-6>
+      <button ion-button round class="order-button" (tap)="deleteAll()"  *ngIf="Ready"> Cancel All</button>
+  </ion-col>
+  </ion-row>
+  
+  
 </ion-content>

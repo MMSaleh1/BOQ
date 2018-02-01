@@ -23,12 +23,12 @@ page-productlist {
 
 .order-button{
     width: 100%;
-    background: #000;
+    
     margin-bottom: 13px;
 }
 .profile-button{
     width: 100%;
-    background: #000;
+    
     margin-top: 11%;
 }
 .rest-img{
@@ -54,15 +54,16 @@ page-productlist {
     text-align: center;
     font-family: fantasy;
     margin: auto;
-    color: #fbb713 !important;
+    color: #fbb713 ;
 
 }
+/*
 .rest-button{
-    background-color: #fbb713;
+   
   //  width: fit-content;
    // height: 100%
 }
-
+*/
 .item-md ion-thumbnail {
     min-width: 60px;
     min-height: 60px;

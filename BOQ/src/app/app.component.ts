@@ -49,10 +49,7 @@ export class MyApp {
       this.products = new Array();
 
       
-      this.natStorage.getItem("POS").then(data=>{
-        this.POS = data;
-        this.POSReady = true;
-      },err=>{
+     
         this.productProvider.get_POS().subscribe(pos=>{ // getting points of sale from the API
           if(pos  != undefined && pos.length >0){ // check if there is no POS
           let POSArr = new Array(); // create array to store the POS
@@ -119,16 +116,16 @@ export class MyApp {
           alert("No POS");
         }
         },err=>{
-          alert(err);
+          alert("No Connection");
+          this.natStorage.getItem("POS").then(data=>{
+            this.POS = data;
+            this.POSReady = true;
+          },err=>{
+            console.log(err);
+          });
         });
 
-      }
-      )
-      this.natStorage.getItem("PCat").then(data=>{
-        this.PosCategories = data;
-        this.listedArr = this.PosCategories;
-        this.POSCategoryReady=true;
-      },err=>{
+     
         this.productProvider.get_POS_category().subscribe(data=>{
           if(data.length>0){
           this.PosCategories = new Array();
@@ -142,9 +139,16 @@ export class MyApp {
 
           }
         },err=>{
+          this.natStorage.getItem("PCat").then(data=>{
+            this.PosCategories = data;
+            this.listedArr = this.PosCategories;
+            this.POSCategoryReady=true;
+          },err=>{
+            console.log(err);
+          })
           console.log(err);
         })
-      })
+      
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();

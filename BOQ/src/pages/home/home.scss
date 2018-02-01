@@ -6,4 +6,10 @@ page-home {
     .item-md p{
         color : rgb(254, 222, 23) ;
     }
+    img {
+        max-width: 100%;
+        border: 0;
+        /* margin: auto; */
+        width: 100%;
+    }
 }
