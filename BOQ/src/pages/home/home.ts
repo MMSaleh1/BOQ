@@ -29,13 +29,39 @@ export class HomePage {
     this.news = new Array();
     this.filteredNews = new Array();
     this.newsCategories = new Array();
-    this.natStorage.getItem('news').then(data=>{
-      this.news = data;
-      this.filteredNews = this.news;
-      //alert(this.filteredNews[0].title);
-      this.ReadyNews = true;
-    },err=>{
-      //this.natStorage.getItem("user").then(user=>{
+
+
+    
+      this.natStorage.getItem("user").then(user=>{
+        this.newsProvider.get_News(user.id).subscribe(data=>{
+          if(data.length > 0){
+          //console.log(data);
+          
+          for(let i =0; i<data.length;i++){
+          this.news[i]= new News(data[i].NewsID,data[i].NewsTitle,data[i].NewsContent,data[i].LikeCount,data[i].DisLikeCount,data[i].NewsImage,data[i].NewsCategory);
+          }
+          this.natStorage.setItem("news",this.news);
+          this.filter();
+          this.ReadyNews=true;
+          //console.log(this.news);
+        }
+        },err=>{
+          alert(err);
+        })
+
+        this.newsProvider.get_News_Category(user.id).subscribe(data=>{
+          if(data.length > 0){
+            for(let i =0;i<data.length;i++){
+              this.newsCategories[i] = new NewsCategory(data[i].NewsCategory,data[i].NewsCategoryID,data[i].NewsCategoryImage);
+            }
+            console.log(this.newsCategories);
+            this.ReadyCate = true;
+          }
+          
+        },err=>{
+          alert(err);
+        })
+      },err=>{
         this.newsProvider.get_News(1940).subscribe(data=>{
           if(data.length > 0){
           console.log(data);
@@ -49,32 +75,21 @@ export class HomePage {
           console.log(this.news);
         }
         },err=>{
-          console.log(err);
+          alert(err);
         })
-     // },err=>{
-    //    alert(err);
-     // })
-    })
-    
-    this.natStorage.getItem('newsCate').then(data=>{
-      this.newsCategories = data;
-      this.ReadyCate = true;
-    },err=>{
-     // this.natStorage.getItem("user").then(user=>{
-      this.newsProvider.get_News_Category(1940).subscribe(data=>{
-        if(data.length > 0){
-          for(let i =0;i<data.length;i++){
-            this.newsCategories[i] = new NewsCategory(data[i].NewsCategory,data[i].NewsCategoryID,data[i].NewsCategoryImage);
+        this.newsProvider.get_News_Category(1940).subscribe(data=>{
+          if(data.length > 0){
+            for(let i =0;i<data.length;i++){
+              this.newsCategories[i] = new NewsCategory(data[i].NewsCategory,data[i].NewsCategoryID,data[i].NewsCategoryImage);
+            }
+            console.log(this.newsCategories);
+            this.ReadyCate = true;
           }
-          console.log(this.newsCategories);
-          this.ReadyCate = true;
-        }
-        
+          
+        },err=>{
+          alert(err);
+        })
       })
-  //  },err=>{
-   //   alert(err);
-  //  })
-    })
   }
 
   filter(category :any = "",ActiveNum : any =-1){
